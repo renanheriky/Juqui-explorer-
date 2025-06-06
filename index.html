@@ -2,67 +2,100 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
-  <title>Juqui Explorer</title>
+  <title>Juqui-Explorer</title>
   <style>
     body {
-      margin: 0;
       font-family: arial, sans-serif;
-      background-color: #f2f2f2;
-      text-align: center;
+      margin: 0; padding: 0;
+      background: #f4f4f4;
+      color: #333;
     }
 
     header {
-      background-color: #2e7d32;
+      background: #2e8b57;
       color: white;
-      padding: 30px 0;
+      padding: 20px 40px;
+      text-align: center;
     }
 
-    .imagem-juquitiba {
-      width: 100%;
-      max-height: 500px;
-      object-fit: cover;
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    section {
-      padding: 40px 20px;
+    .hero {
+      background-image: url('https://source.unsplash.com/1600x600/?nature,waterfall'); /* substitua depois */
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 4px black;
+      font-size: 2em;
+      text-align: center;
     }
 
-    iframe {
-      border: 0;
-      width: 100%;
-      height: 400px;
-      max-width: 800px;
-      margin: 0 auto;
-      display: block;
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 20px;
+    }
+
+    .buttons a {
+      background: #2e8b57;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .buttons a:hover {
+      background: #246b45;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Juqui Explorer</h1>
-    <p>Turismo Sustentável em Juquitiba, SP</p>
+    <h1>Juqui-Explorer</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="trilhas.html">Trilhas</a>
+      <a href="cachoeiras.html">Cachoeiras</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
   </header>
 
-  <img 
-    src="https://images.unsplash.com/photo-1581804928342-4e3405e39c91?auto=format&fit=crop&w=1500&q=80" 
-    alt="Natureza em Juquitiba" 
-    class="imagem-juquitiba"
-  >
-
-  <section>
-    <h2>Bem-vindo!</h2>
-    <p>Explore trilhas, rios, cachoeiras e toda a natureza preservada de Juquitiba.</p>
+  <section class="hero">
+    <div>
+      Descubra os segredos naturais de Juquitiba
+    </div>
   </section>
 
-  <section>
-    <h2>Mapa de Juquitiba</h2>
-    <p>Veja onde ficam os principais pontos turísticos da cidade:</p>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.6070137160766!2d-47.06479608451682!3d-23.68938388461425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cfa3c17b0cfcab%3A0x3fcf61e659fb2e95!2sJuquitiba%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1717690000000!5m2!1spt-BR!2sbr"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+  <section class="buttons">
+    <a href="trilhas.html">Ver Trilhas</a>
+    <a href="cachoeiras.html">Ver Cachoeiras</a>
+    <a href="descubra.html">Descubra seu Roteiro</a>
   </section>
+
+  <footer>
+    &copy; 2025 Juqui-Explorer | Desenvolvido por Renan
+  </footer>
+
 </body>
 </html>
