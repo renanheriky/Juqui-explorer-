@@ -1,32 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Juqui-explorer</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'segoe UI', sans-serif;
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      background: url('juquitiba.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      background: rgba(0, 0, 0, 0.4);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      z-index: 1;
+    }
+
+    .content {
+      padding: 30px;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-  <section id="banner" style="position: relative; text-align: center; color: white;">
-    <img src="juquitiba-terra-de-muitas-aguas.jpg" alt="Juquitiba - Terra de Muitas Águas" style="width: 100%; height: auto; filter: brightness(0.6);">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-      <h1 style="font-size: 3em; margin: 0;">Juquitiba</h1>
-      <p style="font-size: 1.5em; margin-top: 0.5em;">Terra de Muitas Águas</p>
+  <header>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="trilhas.html">Trilhas</a>
+      <a href="cachoeiras.html">Cachoeiras</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Juquitiba: Terra de Muitas Águas</h1>
+      <p>Descubra a natureza, as trilhas e as cachoeiras dessa região incrível</p>
     </div>
-  </section>
+  </div>
 
-  <main>
-    <section>
-      <h2>Bem-vindo ao Juqui-explorer</h2>
-      <p>Descubra os encantos naturais de Juquitiba! Encontre trilhas, cachoeiras, rios, pousadas e muito mais.</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Juqui-explorer. Todos os direitos reservados.</p>
-  </footer>
+  <div class="content">
+    <h2>Bem-vindo ao Juqui-explorer!</h2>
+    <p>Explore pontos turísticos, mapas interativos e experiências únicas em Juquitiba.</p>
+  </div>
 </body>
-
 </html>
