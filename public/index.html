@@ -1,220 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Juqui-Explorer - Turismo em Juquitiba</title>
-  <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom, #a8e6cf, #dcedc1);
-      color: #2e4a1f;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Cabeçalho */
-    header {
-      background: #379683;
-      padding: 20px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #dcedc1;
-      letter-spacing: 2px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-
-    nav ul li a {
-      color: #dcedc1;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    nav ul li a:hover,
-    nav ul li a.active {
-      background: #05386b;
-      color: #a8e6cf;
-    }
-
-    /* Banner inicial */
-    .hero {
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      max-width: 700px;
-    }
-
-    /* Seção principal */
-    main {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-      flex-grow: 1;
-    }
-
-    main section {
-      margin-bottom: 50px;
-    }
-
-    main h2 {
-      color: #379683;
-      margin-bottom: 20px;
-      border-bottom: 3px solid #05386b;
-      padding-bottom: 8px;
-    }
-
-    /* Exemplo seção de trilhas */
-    .trilhas-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 25px;
-    }
-
-    .trilha-card {
-      background: #dcedc1;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .trilha-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .trilha-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-bottom: 3px solid #379683;
-    }
-
-    .trilha-card .info {
-      padding: 15px;
-    }
-
-    .trilha-card .info h3 {
-      margin-bottom: 10px;
-      color: #05386b;
-    }
-
-    .trilha-card .info p {
-      font-size: 0.9rem;
-      color: #2e4a1f;
-    }
-
-    /* Rodapé */
-    footer {
-      background: #379683;
-      color: #dcedc1;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-    }
-
-    /* Responsividade simples */
-    @media(max-width: 600px) {
-      nav ul {
-        gap: 15px;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-    }
-
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juqui-explorer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
-  <header>
-    <nav>
-      <div class="logo">Juqui-Explorer</div>
-      <ul>
-        <li><a href="index.html" class="active">Início</a></li>
-        <li><a href="trilhas.html">Trilhas</a></li>
-        <li><a href="cachoeiras.html">Cachoeiras</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <h1>Descubra as belezas naturais de Juquitiba<br> e viva aventuras inesquecíveis</h1>
+  <section id="banner" style="position: relative; text-align: center; color: white;">
+    <img src="juquitiba-terra-de-muitas-aguas.jpg" alt="Juquitiba - Terra de Muitas Águas" style="width: 100%; height: auto; filter: brightness(0.6);">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <h1 style="font-size: 3em; margin: 0;">Juquitiba</h1>
+      <p style="font-size: 1.5em; margin-top: 0.5em;">Terra de Muitas Águas</p>
+    </div>
   </section>
 
   <main>
     <section>
-      <h2>Trilhas em destaque</h2>
-      <div class="trilhas-list">
-        <article class="trilha-card">
-          <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=60" alt="Trilha da Pedra do Chapéu">
-          <div class="info">
-            <h3>Trilha da Pedra do Chapéu</h3>
-            <p>Uma caminhada moderada com vistas panorâmicas da região e muita natureza ao redor.</p>
-          </div>
-        </article>
-
-        <article class="trilha-card">
-          <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=60" alt="Trilha da Cachoeira do Martinho">
-          <div class="info">
-            <h3>Trilha da Cachoeira do Martinho</h3>
-            <p>Explore cachoeiras cristalinas e refresque-se nas piscinas naturais durante a caminhada.</p>
-          </div>
-        </article>
-
-        <!-- Pode adicionar mais cards aqui -->
-      </div>
+      <h2>Bem-vindo ao Juqui-explorer</h2>
+      <p>Descubra os encantos naturais de Juquitiba! Encontre trilhas, cachoeiras, rios, pousadas e muito mais.</p>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Juqui-Explorer | Desenvolvido por Renan Heriky
+    <p>&copy; 2025 Juqui-explorer. Todos os direitos reservados.</p>
   </footer>
-
 </body>
+
 </html>
