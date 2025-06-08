@@ -1,0 +1,1 @@
+// Script para interatividade futura com o mascote Juka
