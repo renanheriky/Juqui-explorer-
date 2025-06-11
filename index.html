@@ -2,210 +2,84 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Juqui-explorer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
-    <main> <section id="trilhas" class="py-12 bg-green-50">
-  <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center text-green-900 mb-8">Trilhas em Juquitiba</h2>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between">
-        <div>
-          <h3 class="text-xl font-bold text-green-800">Trilha do Rio Dourado</h3>
-          <p class="text-sm text-gray-600 mt-2">Trilha leve, ideal para toda a família. Possui belas paisagens e acesso fácil.</p>
-        </div>
-        <div class="mt-4 flex justify-between items-center">
-          <span class="text-sm font-medium px-3 py-1 bg-green-200 text-green-800 rounded-full">Leve</span>
-          <span class="text-sm text-gray-600">Familiar ✔️</span>
-          <a href="#" class="text-sm text-green-700 hover:underline">Saiba mais</a>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between">
-        <div>
-          <h3 class="text-xl font-bold text-green-800">Trilha da Pedra Branca</h3>
-          <p class="text-sm text-gray-600 mt-2">Moderada, com subidas íngremes. Vista panorâmica no topo.</p>
-        </div>
-        <div class="mt-4 flex justify-between items-center">
-          <span class="text-sm font-medium px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full">Moderada</span>
-          <span class="text-sm text-gray-600">Familiar ❌</span>
-          <a href="#" class="text-sm text-green-700 hover:underline">Saiba mais</a>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between">
-        <div>
-          <h3 class="text-xl font-bold text-green-800">Trilha da Onça</h3>
-          <p class="text-sm text-gray-600 mt-2">Trilha difícil, recomendada para aventureiros experientes. Longa e desafiadora.</p>
-        </div>
-        <div class="mt-4 flex justify-between items-center">
-          <span class="text-sm font-medium px-3 py-1 bg-red-200 text-red-800 rounded-full">Difícil</span>
-          <span class="text-sm text-gray-600">Familiar ❌</span>
-          <a href="#" class="text-sm text-green-700 hover:underline">Saiba mais</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f9f4;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    header {
-      background: #2e8b57;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px;
-      background: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #2e8b57;
-      font-weight: bold;
-    }
-
-    .banner {
-      background-image: url('imagens/juquitiba-banner.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 4px #000;
-    }
-
-    .section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .section h2 {
-      color: #2e8b57;
-      margin-bottom: 20px;
-    }
-
-    .cards {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      width: 280px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 12px;
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card img {
-      width: 100%;
-      border-radius: 10px;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    footer {
-      background: #2e8b57;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    /* Mascote Juka */
-    .juka-chat {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 80px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .juka-chat img {
-      width: 100%;
-      border-radius: 50%;
-    }
-
   </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900">
 
-  <header>
-    <h1>Juqui-explorer</h1>
-    <p>Explore o melhor do ecoturismo em Juquitiba!</p>
+  <!-- Navbar -->
+  <header class="bg-green-800 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Juqui-explorer</h1>
+      <nav class="space-x-4">
+        <a href="#produtos" class="hover:underline">Produtos</a>
+        <a href="#trilhas" class="hover:underline">Trilhas</a>
+        <a href="#cachoeiras" class="hover:underline">Cachoeiras</a>
+        <a href="#contato" class="hover:underline">Contato</a>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <a href="trilhas.html">Trilhas</a>
-    <a href="cachoeiras.html">Cachoeiras</a>
-    <a href="produtos.html">Produtos</a>
-    <a href="contato.html">Contato</a>
-    <a href="sobre.html">Sobre</a>
-  </nav>
+  <!-- Destaque Produtos -->
+  <section id="produtos" class="bg-white py-16 px-4 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-green-800 mb-4">Explore Juquitiba com estilo!</h2>
+      <p class="text-lg text-gray-700 mb-6">
+        Conheça nossos produtos personalizados: camisetas, canecas, chaveiros e muito mais com o mascote Juka e a natureza da nossa cidade!
+      </p>
 
-  <div class="banner">
-    Viva a natureza de Juquitiba!
-  </div>
+      <!-- Imagem do Juka -->
+      <div class="flex justify-center mb-6">
+        <img src="img/juka.png" alt="Mascote Juka" class="w-60 h-auto rounded-xl shadow-md" />
+      </div>
 
-  <section class="section">
-    <h2>Descubra Juquitiba</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="imagens/trilha1.jpg" alt="Trilha 1">
-        <h3>Trilhas Incríveis</h3>
-        <p>Explore trilhas com diferentes níveis de dificuldade, cercadas por natureza exuberante.</p>
-      </div>
-      <div class="card">
-        <img src="imagens/cachoeira1.jpg" alt="Cachoeira 1">
-        <h3>Cachoeiras Refrescantes</h3>
-        <p>Conheça as principais cachoeiras de Juquitiba, ideais para aventura e relaxamento.</p>
-      </div>
-      <div class="card">
-        <img src="imagens/produtos.jpg" alt="Produtos">
-        <h3>Produtos Locais</h3>
-        <p>Compre produtos exclusivos da cidade e apoie os artesãos locais.</p>
-      </div>
+      <a href="produtos.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300">
+        Ver Produtos
+      </a>
     </div>
   </section>
 
-  <footer>
-    <p>Desenvolvido pela equipe Juqui-explorer</p>
-    <p>Contato WhatsApp: (11) 99761-1042</p>
-  </footer>
+  <!-- Trilhas -->
+  <section id="trilhas" class="bg-gray-100 py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-green-800 mb-6">Trilhas ecológicas</h2>
+      <p class="text-gray-700 mb-4">
+        Em breve: descubra trilhas incríveis, com dificuldade, acesso e paisagens únicas de Juquitiba.
+      </p>
+      <a href="trilhas.html" class="text-green-600 hover:underline font-medium">Ver Trilhas</a>
+    </div>
+  </section>
 
-  <!-- Mascote Juka -->
-  <div class="juka-chat" onclick="alert('Olá! Sou o Juka, seu guia virtual em Juquitiba! Em breve, terei mais dicas para você.')">
-    <img src="imagens/juka.png" alt="Mascote Juka">
-  </div>
+  <!-- Cachoeiras -->
+  <section id="cachoeiras" class="bg-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-green-800 mb-6">Cachoeiras refrescantes</h2>
+      <p class="text-gray-700 mb-4">
+        Em breve: conheça as quedas d’água mais encantadoras da região para relaxar e renovar as energias.
+      </p>
+      <a href="cachoeiras.html" class="text-green-600 hover:underline font-medium">Ver Cachoeiras</a>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="bg-green-800 text-white py-12 px-4 text-center">
+    <h2 class="text-3xl font-bold mb-4">Entre em contato</h2>
+    <p class="mb-6">Tem alguma dúvida, sugestão ou quer fazer parte do projeto?</p>
+    <a href="mailto:contato@juquiexplorer.com" class="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
+      Enviar E-mail
+    </a>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-green-900 text-white text-center p-4">
+    <p>&copy; 2025 Juqui-explorer. Todos os direitos reservados.</p>
+  </footer>
 
 </body>
 </html>
