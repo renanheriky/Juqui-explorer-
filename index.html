@@ -1,85 +1,455 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juqui-explorer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Juqui-Explorer - Ecoturismo Digital</title>
+<style>
+  /* RESET */
+  * {
+    margin:0; padding:0; box-sizing:border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e6f0e9;
+    color: #2e4d26;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #3a7d44;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  header {
+    background-color: #4a7a3f;
+    padding: 15px 20px;
+    color: #dff1d6;
+    position: sticky;
+    top:0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+  }
+  nav ul li {
+    font-weight: 600;
+  }
+  nav ul li a {
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  nav ul li a:hover {
+    background-color: #3a6d35;
+  }
+
+  main {
+    flex: 1;
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  section {
+    margin-bottom: 40px;
+    background: #f7faf4;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.05);
+    padding: 20px;
+  }
+  section h2 {
+    color: #3a7d44;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #6daa68;
+    padding-bottom: 6px;
+  }
+  .nature-img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  /* Produtos grid */
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
+    gap: 18px;
+  }
+  .produto-card {
+    background: #d9f0ce;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  }
+  /* Guias profiles */
+  .guias-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .guia {
+    background: #cde4b8;
+    border-radius: 12px;
+    padding: 15px;
+    flex: 1 1 250px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.08);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .guia-avatar {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    box-shadow: 0 0 5px #7aa859;
+  }
+  .guia-info h3 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: #2f5a1a;
+  }
+  .guia-info p {
+    font-size: 0.9rem;
+    color: #476f32;
+  }
+  /* Chat box */
+  #chat {
+    background: #e2f0d9;
+    border-radius: 12px;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    padding: 15px;
+    box-shadow: 0 3px 7px rgb(0 0 0 / 0.1);
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    box-shadow: 0 0 5px #a3cc82;
+  }
+  .chat-bubble {
+    background: #d9f0ce;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 80%;
+    font-size: 0.9rem;
+    color: #2a4c1a;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 0.08);
+  }
+
+  /* Form de contato */
+  form label {
+    display: block;
+    margin: 10px 0 6px 0;
+    font-weight: 600;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #9bbf7f;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  form textarea {
+    min-height: 80px;
+  }
+  form button {
+    margin-top: 15px;
+    background-color: #4a7a3f;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  form button:hover {
+    background-color: #3a6d35;
+  }
+
+  footer {
+    background-color: #4a7a3f;
+    color: #dff1d6;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Login */
+  #loginSection {
+    max-width: 400px;
+    margin: 0 auto 40px;
+    background: #f7faf4;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.05);
+  }
+  #loginSection h2 {
+    margin-bottom: 16px;
+  }
+  #loginSection input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #9bbf7f;
+  }
+  #loginSection button {
+    width: 100%;
+    padding: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background-color: #4a7a3f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #loginSection button:hover {
+    background-color: #3a6d35;
+  }
+  #loginFeedback {
+    font-weight: 600;
+    margin-top: 12px;
+    color: #3a7d44;
+  }
+
+  /* Perfil usuário */
+  #userProfile {
+    max-width: 400px;
+    margin: 0 auto 40px;
+    background: #d9f0ce;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.07);
+    display: none;
+    text-align: center;
+  }
+  #userProfile .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 auto 15px;
+    box-shadow: 0 0 10px #7aa859;
+  }
+  #userProfile h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #2f5a1a;
+  }
+  #userProfile button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3a6d35;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #userProfile button:hover {
+    background-color: #2e4d26;
+  }
+
+  /* Responsivo */
+  @media(max-width: 720px) {
+    nav ul {
+      flex-wrap: wrap;
+      gap: 10px;
     }
-  </style>
+    .guias-list {
+      flex-direction: column;
+    }
+  }
+</style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-  <!-- Navbar -->
-  <header class="bg-green-800 text-white p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Juqui-explorer</h1>
-      <nav class="space-x-4">
-        <a href="#produtos" class="hover:underline">Produtos</a>
-        <a href="#trilhas" class="hover:underline">Trilhas</a>
-        <a href="#cachoeiras" class="hover:underline">Cachoeiras</a>
-        <a href="#contato" class="hover:underline">Contato</a>
-      </nav>
+<header>
+  <h1>Juqui-Explorer</h1>
+  <nav>
+    <ul>
+      <li><a href="#home">Início</a></li>
+      <li><a href="#trilhas">Trilhas</a></li>
+      <li><a href="#cachoeiras">Cachoeiras</a></li>
+      <li><a href="#produtos">Produtos</a></li>
+      <li><a href="#guias">Guias</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a href="#loginSection">Login</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Login -->
+  <section id="loginSection">
+    <h2>Login</h2>
+    <form id="loginForm" novalidate>
+      <input type="text" id="loginUser" name="loginUser" placeholder="Usuário" required />
+      <input type="password" id="loginPass" name="loginPass" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <p id="loginFeedback"></p>
+    </form>
+  </section>
+
+  <!-- Perfil após login -->
+  <section id="userProfile">
+    <div class="avatar" id="userAvatar"></div>
+    <h3 id="userName"></h3>
+    <button id="logoutBtn">Sair</button>
+  </section>
+
+  <section id="home">
+    <h2>Bem-vindo ao Juqui-Explorer</h2>
+    <p>Seu guia digital para o ecoturismo sustentável em Juquitiba. Explore trilhas, cachoeiras, produtos locais, pousadas e guias que respeitam a natureza e promovem o turismo consciente.</p>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Natureza em Juquitiba" class="nature-img" />
+  </section>
+
+  <section id="trilhas">
+    <h2>Trilhas</h2>
+    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" alt="Trilha na floresta" class="nature-img" />
+    <p>Conheça as trilhas de diferentes níveis, com mapas e informações detalhadas para garantir segurança e diversão em sua aventura.</p>
+  </section>
+
+  <section id="cachoeiras">
+    <h2>Cachoeiras</h2>
+    <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=900&q=80" alt="Cachoeira" class="nature-img" />
+    <p>Descubra cachoeiras exuberantes para se refrescar e contemplar a natureza. Respeite as regras locais e preserve o ambiente.</p>
+  </section>
+
+  <section id="produtos">
+    <h2>Produtos Locais</h2>
+    <div class="produtos-grid">
+      <div class="produto-card">Artesanato</div>
+      <div class="produto-card">Alimentos Orgânicos</div>
+      <div class="produto-card">Souvenirs</div>
+      <div class="produto-card">Produtos Personalizados</div>
     </div>
-  </header>
+  </section>
 
-  <!-- Destaque Produtos -->
-  <section id="produtos" class="bg-white py-16 px-4 text-center">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-4xl font-bold text-green-800 mb-4">Explore Juquitiba com estilo!</h2>
-      <p class="text-lg text-gray-700 mb-6">
-        Conheça nossos produtos personalizados: camisetas, canecas, chaveiros e muito mais com o mascote Juka e a natureza da nossa cidade!
-      </p>
-
-      <!-- Imagem do Juka -->
-      <div class="flex justify-center mb-6">
-        <img src="img/juka.png" alt="Mascote Juka" class="w-60 h-auto rounded-xl shadow-md" />
+  <section id="guias">
+    <h2>Guias Locais</h2>
+    <div class="guias-list">
+      <div class="guia">
+        <div class="guia-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+        <div class="guia-info">
+          <h3>Juca</h3>
+          <p>Especialista em trilhas e cultura local. Apaixonado pela natureza de Juquitiba.</p>
+        </div>
       </div>
-
-      <a href="produtos.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300">
-        Ver Produtos
-      </a>
+      <div class="guia">
+        <div class="guia-avatar" style="background-image:url('https://randomuser.me/api/portraits/women/65.jpg')"></div>
+        <div class="guia-info">
+          <h3>Maria</h3>
+          <p>Guia experiente em ecoturismo e práticas sustentáveis.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Trilhas -->
-  <section id="trilhas" class="bg-gray-100 py-16 px-4 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-green-800 mb-6">Trilhas ecológicas</h2>
-      <p class="text-gray-700 mb-4">
-        Em breve: descubra trilhas incríveis, com dificuldade, acesso e paisagens únicas de Juquitiba.
-      </p>
-      <a href="trilhas.html" class="text-green-600 hover:underline font-medium">Ver Trilhas</a>
+  <section id="chat">
+    <h2>Chat com o Guia Juca</h2>
+    <div class="chat-message">
+      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+      <div class="chat-bubble">Olá! Posso ajudar a planejar sua trilha hoje?</div>
+    </div>
+    <div class="chat-message" style="justify-content:flex-end; flex-direction:row-reverse;">
+      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/women/44.jpg')"></div>
+      <div class="chat-bubble" style="background:#a7d27d; color:#264b10;">Oi Juca! Quero dicas para cachoeiras.</div>
+    </div>
+    <div class="chat-message">
+      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+      <div class="chat-bubble">Claro! Recomendo a Cachoeira da Fumaça, é linda e acessível.</div>
     </div>
   </section>
 
-  <!-- Cachoeiras -->
-  <section id="cachoeiras" class="bg-white py-16 px-4 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-green-800 mb-6">Cachoeiras refrescantes</h2>
-      <p class="text-gray-700 mb-4">
-        Em breve: conheça as quedas d’água mais encantadoras da região para relaxar e renovar as energias.
-      </p>
-      <a href="cachoeiras.html" class="text-green-600 hover:underline font-medium">Ver Cachoeiras</a>
-    </div>
+  <section id="sobre">
+    <h2>Sobre o Juqui-Explorer</h2>
+    <p>Somos um grupo de entusiastas do ecoturismo digital, dedicados a promover o turismo sustentável e a valorização da cultura local em Juquitiba.</p>
+    <p>Nosso projeto oferece uma plataforma integrada para você conhecer trilhas, cachoeiras, produtos artesanais, pousadas e guias locais, tudo de forma simples e prática.</p>
+    <p>Queremos incentivar o respeito ao meio ambiente e o desenvolvimento econômico da região, conectando turistas e moradores de forma consciente.</p>
   </section>
 
-  <!-- Contato -->
-  <section id="contato" class="bg-green-800 text-white py-12 px-4 text-center">
-    <h2 class="text-3xl font-bold mb-4">Entre em contato</h2>
-    <p class="mb-6">Tem alguma dúvida, sugestão ou quer fazer parte do projeto?</p>
-    <a href="mailto:contato@juquiexplorer.com" class="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-      Enviar E-mail
-    </a>
+  <section id="contato">
+    <h2>Contato</h2>
+    <form id="contactForm" novalidate>
+      <label for="nomeContato">Nome:</label>
+      <input type="text" id="nomeContato" name="nomeContato" placeholder="Seu nome" required />
+
+      <label for="emailContato">Email:</label>
+      <input type="email" id="emailContato" name="emailContato" placeholder="seu@email.com" required />
+
+      <label for="mensagemContato">Mensagem:</label>
+      <textarea id="mensagemContato" name="mensagemContato" placeholder="Escreva sua mensagem aqui..." required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="formFeedback" style="margin-top:10px; font-weight:600; color:#3a7d44;"></p>
   </section>
 
-  <!-- Rodapé -->
-  <footer class="bg-green-900 text-white text-center p-4">
-    <p>&copy; 2025 Juqui-explorer. Todos os direitos reservados.</p>
-  </footer>
+</main>
 
-</body>
-</html>
+<footer>
+  &copy; 2025 Juqui-Explorer - Todos os direitos reservados.
+</footer>
+
+<script>
+  // Simulação simples de usuários - em app real usaria backend com autenticação
+  const usuarios = {
+    'juca': {
+      nome: 'Juca',
+      senha: '12345',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    },
+    'maria': {
+      nome: 'Maria',
+      senha: 'abcde',
+      avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
+    }
+  };
+
+  const loginForm = document.getElementById('loginForm');
+  const loginFeedback = document.getElementById('loginFeedback');
+  const loginSection = document.getElementById('loginSection');
+  const userProfile = document.getElementById('userProfile');
+  const userAvatar = document.getElementById('userAvatar');
+  const userName = document.getElementById('userName');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const user = login
