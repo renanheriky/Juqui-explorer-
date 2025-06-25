@@ -1,54 +1,77 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login</title>
+  <title>Login / Cadastro</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #F4EBD0;
       color: #3E5C3A;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
     }
-    form {
+    .container {
       background: white;
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
+      width: 320px;
     }
+    .tabs { display: flex; justify-content: space-around; margin-bottom: 1rem; }
+    .tabs button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #8FCB81;
+      color: #3E5C3A;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    form { display: none; flex-direction: column; }
+    form.active { display: flex; }
     input {
-      display: block;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
       padding: 0.5rem;
-      width: 100%;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    button {
-      padding: 0.7rem 1.5rem;
-      background: #8FCB81;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
+    button.submit {
+      background: #3E5C3A;
+      color: white;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <form>
-    <h2>Login / Cadastro</h2>
-    <input type="text" placeholder="Nome de usuário" required />
-    <input type="password" placeholder="Senha" required />
-    <button type="submit">Entrar</button>
-  </form>
+  <div class="container">
+    <div class="tabs">
+      <button onclick="showForm('login')">Entrar</button>
+      <button onclick="showForm('cadastro')">Cadastrar</button>
+    </div>
+    <form id="login" class="active">
+      <input type="text" placeholder="Usuário" required />
+      <input type="password" placeholder="Senha" required />
+      <button class="submit" type="submit">Entrar</button>
+    </form>
+    <form id="cadastro">
+      <input type="text" placeholder="Nome completo" required />
+      <input type="email" placeholder="E-mail" required />
+      <input type="password" placeholder="Senha" required />
+      <button class="submit" type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <script>
+    function showForm(id) {
+      document.getElementById('login').classList.remove('active');
+      document.getElementById('cadastro').classList.remove('active');
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
 </body>
 </html>
