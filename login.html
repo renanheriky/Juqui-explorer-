@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Juqui-Explorer</title>
+  <title>Juqui-Explorer | Acesso</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -18,9 +22,33 @@
       background-color: #3E5C3A;
       padding: 1rem 2rem;
       color: white;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
       font-size: 1.5rem;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav button {
+      background: #82C47F;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
       font-weight: bold;
+    }
+
+    nav button:hover {
+      background: #6caf6a;
     }
 
     main {
@@ -28,6 +56,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
     }
 
     .box {
@@ -35,12 +64,17 @@
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px;
       text-align: center;
-      width: 300px;
+      display: none;
+    }
+
+    .box.active {
+      display: block;
     }
 
     .box h2 {
-      margin-bottom: 1.5rem;
       color: #3E5C3A;
     }
 
@@ -53,34 +87,20 @@
       font-size: 1rem;
     }
 
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .actions button,
-    .login-btn,
-    .logout-btn {
-      padding: 0.5rem 1rem;
-      background: #82C47F;
+    .btn-main {
+      width: 100%;
+      padding: 0.7rem;
+      background: #3E5C3A;
       color: white;
       border: none;
       border-radius: 6px;
+      font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 0.7rem;
     }
 
-    .login-btn,
-    .logout-btn {
-      width: 100%;
-      background: #3E5C3A;
-      margin-top: 0.5rem;
-    }
-
-    .actions button:hover,
-    .login-btn:hover,
-    .logout-btn:hover {
+    .btn-main:hover {
       background: #2E4430;
     }
 
@@ -95,92 +115,113 @@
 </head>
 <body>
 
-  <header>Juqui-Explorer</header>
+  <header>
+    <h1>Juqui-Explorer</h1>
+    <nav>
+      <button onclick="navigateTo('login')">Entrar</button>
+      <button onclick="navigateTo('register')">Cadastrar</button>
+      <button onclick="logout()" id="logoutBtn" style="display: none;">Sair</button>
+    </nav>
+  </header>
 
   <main>
-    <!-- Tela de Login/Cadastro -->
-    <div class="box" id="auth-box">
-      <h2 id="auth-title">Entrar na Conta</h2>
-      <div class="actions">
-        <button onclick="showLogin()">Entrar</button>
-        <button onclick="showRegister()">Cadastrar</button>
-      </div>
-      <input type="text" id="username" placeholder="Usuário" />
-      <input type="password" id="password" placeholder="Senha" />
-      <button class="login-btn" onclick="handleAuth()">Entrar</button>
+    <!-- Login -->
+    <div class="box active" id="loginBox">
+      <h2>Bem-vindo de volta!</h2>
+      <input type="text" id="loginUser" placeholder="Usuário" />
+      <input type="password" id="loginPass" placeholder="Senha" />
+      <button class="btn-main" onclick="login()">Entrar</button>
     </div>
 
-    <!-- Tela Logado -->
-    <div class="box" id="welcome-box" style="display: none;">
-      <h2>Bem-vindo, <span id="user-display"></span>!</h2>
-      <p>Você está logado no Juqui-Explorer.</p>
-      <button class="logout-btn" onclick="logout()">Sair</button>
+    <!-- Cadastro -->
+    <div class="box" id="registerBox">
+      <h2>Crie sua conta</h2>
+      <input type="text" id="registerUser" placeholder="Escolha um usuário" />
+      <input type="password" id="registerPass" placeholder="Crie uma senha" />
+      <button class="btn-main" onclick="register()">Cadastrar</button>
+    </div>
+
+    <!-- Boas-vindas -->
+    <div class="box" id="welcomeBox">
+      <h2>Olá, <span id="userDisplay"></span> 👋</h2>
+      <p>Você está logado no Juqui-Explorer!</p>
+      <button class="btn-main" onclick="navigateTo('login')">Voltar à Página Inicial</button>
     </div>
   </main>
 
-  <footer>&copy; 2025 Juqui-Explorer</footer>
+  <footer>
+    &copy; 2025 Juqui-Explorer — Todos os direitos reservados
+  </footer>
 
   <script>
-    let mode = 'login'; // ou 'register'
+    function navigateTo(page) {
+      document.querySelectorAll('.box').forEach(box => box.classList.remove('active'));
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('registerBox').style.display = 'none';
+      document.getElementById('welcomeBox').style.display = 'none';
 
-    function showLogin() {
-      mode = 'login';
-      document.getElementById('auth-title').innerText = 'Entrar na Conta';
-      document.querySelector('.login-btn').innerText = 'Entrar';
+      if (page === 'login') {
+        document.getElementById('loginBox').classList.add('active');
+        document.getElementById('loginBox').style.display = 'block';
+      } else if (page === 'register') {
+        document.getElementById('registerBox').classList.add('active');
+        document.getElementById('registerBox').style.display = 'block';
+      } else if (page === 'welcome') {
+        document.getElementById('welcomeBox').classList.add('active');
+        document.getElementById('welcomeBox').style.display = 'block';
+      }
     }
 
-    function showRegister() {
-      mode = 'register';
-      document.getElementById('auth-title').innerText = 'Criar Nova Conta';
-      document.querySelector('.login-btn').innerText = 'Cadastrar';
-    }
+    function register() {
+      const user = document.getElementById('registerUser').value.trim();
+      const pass = document.getElementById('registerPass').value.trim();
+      if (!user || !pass) return alert('Preencha todos os campos.');
 
-    function handleAuth() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      if (!username || !password) {
-        alert('Preencha todos os campos.');
+      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[user]) {
+        alert('Esse nome de usuário já existe.');
         return;
       }
 
-      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      users[user] = pass;
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('Cadastro realizado com sucesso! Agora é só entrar 😄');
+      navigateTo('login');
+    }
 
-      if (mode === 'register') {
-        if (users[username]) {
-          alert('Usuário já cadastrado!');
-        } else {
-          users[username] = password;
-          localStorage.setItem('users', JSON.stringify(users));
-          alert('Cadastro realizado com sucesso!');
-          showLogin();
-        }
+    function login() {
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      if (!user || !pass) return alert('Preencha todos os campos.');
+
+      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[user] && users[user] === pass) {
+        localStorage.setItem('loggedUser', user);
+        showWelcome(user);
       } else {
-        if (users[username] === password) {
-          localStorage.setItem('loggedUser', username);
-          showWelcome(username);
-        } else {
-          alert('Usuário ou senha incorretos!');
-        }
+        alert('Usuário ou senha inválidos.');
       }
     }
 
     function showWelcome(user) {
-      document.getElementById('auth-box').style.display = 'none';
-      document.getElementById('welcome-box').style.display = 'block';
-      document.getElementById('user-display').innerText = user;
+      document.getElementById('userDisplay').innerText = user;
+      document.getElementById('logoutBtn').style.display = 'inline-block';
+      navigateTo('welcome');
     }
 
     function logout() {
       localStorage.removeItem('loggedUser');
-      document.getElementById('auth-box').style.display = 'block';
-      document.getElementById('welcome-box').style.display = 'none';
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
+      document.getElementById('logoutBtn').style.display = 'none';
+      navigateTo('login');
     }
 
-    // Se já estiver logado, mostrar tela de boas-vindas
-    const loggedUser = localStorage.getItem('loggedUser');
-    if (loggedUser) showWelcome(loggedUser);
+    // Quando recarregar a página
+    const user = localStorage.getItem('loggedUser');
+    if (user) {
+      showWelcome(user);
+    } else {
+      navigateTo('login');
+    }
   </script>
 
 </body>
