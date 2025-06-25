@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Juqui-Explorer | Acesso</title>
+  <title>Login - Juqui-Explorer</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -20,62 +18,60 @@
 
     header {
       background-color: #3E5C3A;
-      padding: 1rem 2rem;
       color: white;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
-    header h1 {
+    .logo {
       font-size: 1.5rem;
-      margin: 0;
+      font-weight: bold;
     }
 
     nav {
       display: flex;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    nav button {
-      background: #82C47F;
+    nav a, nav button {
+      background: none;
       border: none;
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
     }
 
-    nav button:hover {
-      background: #6caf6a;
+    nav button:hover, nav a:hover {
+      text-decoration: underline;
     }
 
     main {
       flex: 1;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 2rem;
     }
 
     .box {
-      background-color: white;
+      background: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       max-width: 350px;
+      width: 100%;
       text-align: center;
-      display: none;
-    }
-
-    .box.active {
-      display: block;
     }
 
     .box h2 {
       color: #3E5C3A;
+      margin-bottom: 1rem;
     }
 
     .box input {
@@ -87,7 +83,7 @@
       font-size: 1rem;
     }
 
-    .btn-main {
+    .box button {
       width: 100%;
       padding: 0.7rem;
       background: #3E5C3A;
@@ -97,11 +93,15 @@
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 0.7rem;
+      margin-top: 1rem;
     }
 
-    .btn-main:hover {
+    .box button:hover {
       background: #2E4430;
+    }
+
+    #welcome {
+      display: none;
     }
 
     footer {
@@ -116,112 +116,96 @@
 <body>
 
   <header>
-    <h1>Juqui-Explorer</h1>
+    <div class="logo">Juqui-Explorer</div>
     <nav>
-      <button onclick="navigateTo('login')">Entrar</button>
-      <button onclick="navigateTo('register')">Cadastrar</button>
-      <button onclick="logout()" id="logoutBtn" style="display: none;">Sair</button>
+      <a href="index.html">Início</a>
+      <a href="trilhas.html">Trilhas</a>
+      <a href="cachoeiras.html">Cachoeiras</a>
+      <a href="contato.html">Contato</a>
+      <button onclick="toggleAuthBox()" id="authBtn">Entrar</button>
+      <button onclick="logout()" id="logoutBtn" style="display:none;">Sair</button>
     </nav>
   </header>
 
   <main>
-    <!-- Login -->
-    <div class="box active" id="loginBox">
-      <h2>Bem-vindo de volta!</h2>
-      <input type="text" id="loginUser" placeholder="Usuário" />
-      <input type="password" id="loginPass" placeholder="Senha" />
-      <button class="btn-main" onclick="login()">Entrar</button>
+    <div class="box" id="loginBox">
+      <h2 id="formTitle">Bem-vindo de volta!</h2>
+      <input type="text" id="username" placeholder="Usuário">
+      <input type="password" id="password" placeholder="Senha">
+      <button onclick="handleLogin()">Entrar</button>
+      <p style="margin-top:1rem;">
+        <small>Não tem uma conta? <a href="#" onclick="switchMode()">Cadastre-se</a></small>
+      </p>
     </div>
 
-    <!-- Cadastro -->
-    <div class="box" id="registerBox">
-      <h2>Crie sua conta</h2>
-      <input type="text" id="registerUser" placeholder="Escolha um usuário" />
-      <input type="password" id="registerPass" placeholder="Crie uma senha" />
-      <button class="btn-main" onclick="register()">Cadastrar</button>
-    </div>
-
-    <!-- Boas-vindas -->
-    <div class="box" id="welcomeBox">
+    <div class="box" id="welcome">
       <h2>Olá, <span id="userDisplay"></span> 👋</h2>
-      <p>Você está logado no Juqui-Explorer!</p>
-      <button class="btn-main" onclick="navigateTo('login')">Voltar à Página Inicial</button>
+      <p>Você está logado no Juqui-Explorer.</p>
+      <button onclick="logout()">Sair</button>
     </div>
   </main>
 
-  <footer>
-    &copy; 2025 Juqui-Explorer — Todos os direitos reservados
-  </footer>
+  <footer>&copy; 2025 Juqui-Explorer — Todos os direitos reservados</footer>
 
   <script>
-    function navigateTo(page) {
-      document.querySelectorAll('.box').forEach(box => box.classList.remove('active'));
-      document.getElementById('loginBox').style.display = 'none';
-      document.getElementById('registerBox').style.display = 'none';
-      document.getElementById('welcomeBox').style.display = 'none';
+    let mode = 'login';
 
-      if (page === 'login') {
-        document.getElementById('loginBox').classList.add('active');
-        document.getElementById('loginBox').style.display = 'block';
-      } else if (page === 'register') {
-        document.getElementById('registerBox').classList.add('active');
-        document.getElementById('registerBox').style.display = 'block';
-      } else if (page === 'welcome') {
-        document.getElementById('welcomeBox').classList.add('active');
-        document.getElementById('welcomeBox').style.display = 'block';
-      }
+    function switchMode() {
+      mode = mode === 'login' ? 'register' : 'login';
+      document.getElementById('formTitle').innerText =
+        mode === 'login' ? 'Bem-vindo de volta!' : 'Crie sua conta';
+      document.querySelector('#loginBox button').innerText =
+        mode === 'login' ? 'Entrar' : 'Cadastrar';
     }
 
-    function register() {
-      const user = document.getElementById('registerUser').value.trim();
-      const pass = document.getElementById('registerPass').value.trim();
+    function handleLogin() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+
       if (!user || !pass) return alert('Preencha todos os campos.');
 
       let users = JSON.parse(localStorage.getItem('users') || '{}');
-      if (users[user]) {
-        alert('Esse nome de usuário já existe.');
+
+      if (mode === 'register') {
+        if (users[user]) {
+          alert('Usuário já existe!');
+          return;
+        }
+        users[user] = pass;
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Cadastro realizado! Agora faça o login.');
+        switchMode();
         return;
       }
 
-      users[user] = pass;
-      localStorage.setItem('users', JSON.stringify(users));
-      alert('Cadastro realizado com sucesso! Agora é só entrar 😄');
-      navigateTo('login');
-    }
-
-    function login() {
-      const user = document.getElementById('loginUser').value.trim();
-      const pass = document.getElementById('loginPass').value.trim();
-      if (!user || !pass) return alert('Preencha todos os campos.');
-
-      let users = JSON.parse(localStorage.getItem('users') || '{}');
-      if (users[user] && users[user] === pass) {
+      if (users[user] === pass) {
         localStorage.setItem('loggedUser', user);
         showWelcome(user);
       } else {
-        alert('Usuário ou senha inválidos.');
+        alert('Usuário ou senha incorretos.');
       }
     }
 
     function showWelcome(user) {
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('welcome').style.display = 'block';
       document.getElementById('userDisplay').innerText = user;
+      document.getElementById('authBtn').style.display = 'none';
       document.getElementById('logoutBtn').style.display = 'inline-block';
-      navigateTo('welcome');
     }
 
     function logout() {
       localStorage.removeItem('loggedUser');
-      document.getElementById('logoutBtn').style.display = 'none';
-      navigateTo('login');
+      location.reload();
     }
 
-    // Quando recarregar a página
-    const user = localStorage.getItem('loggedUser');
-    if (user) {
-      showWelcome(user);
-    } else {
-      navigateTo('login');
+    function toggleAuthBox() {
+      document.getElementById('loginBox').style.display = 'block';
+      document.getElementById('welcome').style.display = 'none';
     }
+
+    const logged = localStorage.getItem('loggedUser');
+    if (logged) showWelcome(logged);
   </script>
 
 </body>
