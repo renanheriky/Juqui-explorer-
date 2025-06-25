@@ -2,76 +2,122 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login / Cadastro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Juqui-Explorer</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #F4EBD0;
-      color: #3E5C3A;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #3E5C3A;
+      padding: 1rem 2rem;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
     }
-    .container {
-      background: white;
+
+    .login-box {
+      background-color: white;
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
     }
-    .tabs { display: flex; justify-content: space-around; margin-bottom: 1rem; }
-    .tabs button {
-      padding: 0.5rem 1rem;
-      border: none;
-      background: #8FCB81;
+
+    .login-box h2 {
+      margin-bottom: 1.5rem;
       color: #3E5C3A;
-      cursor: pointer;
-      border-radius: 5px;
-      font-weight: bold;
     }
-    form { display: none; flex-direction: column; }
-    form.active { display: flex; }
-    input {
+
+    .login-box input {
+      width: 100%;
+      padding: 0.7rem;
       margin: 0.5rem 0;
-      padding: 0.5rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 1rem;
     }
-    button.submit {
+
+    .login-box .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .login-box .actions button {
+      padding: 0.5rem 1rem;
+      background: #82C47F;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box .actions button:hover {
+      background: #6caf6a;
+    }
+
+    .login-box .login-btn {
+      width: 100%;
+      padding: 0.7rem;
       background: #3E5C3A;
       color: white;
-      margin-top: 1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box .login-btn:hover {
+      background: #2E4430;
+    }
+
+    footer {
+      background: #3E5C3A;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="tabs">
-      <button onclick="showForm('login')">Entrar</button>
-      <button onclick="showForm('cadastro')">Cadastrar</button>
-    </div>
-    <form id="login" class="active">
-      <input type="text" placeholder="Usuário" required />
-      <input type="password" placeholder="Senha" required />
-      <button class="submit" type="submit">Entrar</button>
-    </form>
-    <form id="cadastro">
-      <input type="text" placeholder="Nome completo" required />
-      <input type="email" placeholder="E-mail" required />
-      <input type="password" placeholder="Senha" required />
-      <button class="submit" type="submit">Cadastrar</button>
-    </form>
-  </div>
 
-  <script>
-    function showForm(id) {
-      document.getElementById('login').classList.remove('active');
-      document.getElementById('cadastro').classList.remove('active');
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
+  <header>
+    Juqui-Explorer
+  </header>
+
+  <main>
+    <div class="login-box">
+      <h2>Entrar na Conta</h2>
+      <div class="actions">
+        <button>Entrar</button>
+        <button>Cadastrar</button>
+      </div>
+      <input type="text" placeholder="Usuário" />
+      <input type="password" placeholder="Senha" />
+      <button class="login-btn">Entrar</button>
+    </div>
+  </main>
+
+  <footer>&copy; 2025 Juqui-Explorer</footer>
+
 </body>
 </html>
