@@ -15,7 +15,6 @@
     header, footer {
       background: #3E5C3A;
       color: white;
-      text-align: center;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -98,7 +97,7 @@
       <div id="map"></div>
 
       <div class="waze-button">
-        <a href="https://waze.com/ul?ll=-23.885662,-47.331848&navigate=yes" target="_blank">
+        <a href="https://www.waze.com/ul?q=Parque Estadual do Jurupará&navigate=yes" target="_blank">
           <button>Abrir no Waze</button>
         </a>
       </div>
@@ -116,7 +115,7 @@
     }).addTo(map);
 
     L.marker([-23.885662, -47.331848]).addTo(map)
-      .bindPopup('Parque Jurupará')
+      .bindPopup('Parque Estadual do Jurupará')
       .openPopup();
   </script>
 </body>
