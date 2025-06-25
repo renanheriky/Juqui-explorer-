@@ -1,43 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sobre o Projeto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre o Projeto - Juqui-Explorer</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #F4EBD0;
-      color: #3E5C3A;
       margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4e9c5;
+      color: #2f4f2f;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    header,
-    footer {
-      background: #3E5C3A;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
+
+    header {
+      background-color: #2f4f2f;
+      padding: 15px 30px;
+      color: #fff;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
     nav a {
-      color: white;
-      margin: 0 1rem;
+      color: #fff;
+      margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
     }
-    .container {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      color: #2f4f2f;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    footer {
+      background-color: #2f4f2f;
+      color: #fff;
+      text-align: center;
+      padding: 15px 10px;
     }
   </style>
 </head>
 <body>
   <header>
-    <div>Juqui-Explorer</div>
+    <h1>Juqui-Explorer</h1>
     <nav>
       <a href="index.html">Início</a>
       <a href="trilhas.html">Trilhas</a>
@@ -46,10 +76,19 @@
       <a href="login.html">Login</a>
     </nav>
   </header>
-  <div class="container">
-    <h1>Sobre o Projeto</h1>
-    <p>O Juqui-Explorer é um projeto acadêmico criado com o objetivo de promover o ecoturismo em Juquitiba. Através de trilhas e cachoeiras, queremos incentivar a conexão com a natureza e a valorização dos atrativos locais.</p>
-  </div>
-  <footer>&copy; 2025 Juqui-Explorer</footer>
+
+  <main>
+    <section>
+      <h2>Sobre o Projeto</h2>
+      <p>
+        O Juqui-Explorer é um projeto acadêmico criado com o objetivo de promover o ecoturismo em Juquitiba.
+        Através de trilhas e cachoeiras, queremos incentivar a conexão com a natureza e a valorização dos atrativos locais.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Juqui-Explorer
+  </footer>
 </body>
 </html>
