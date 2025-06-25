@@ -1,455 +1,181 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Juqui-Explorer - Ecoturismo Digital</title>
-<style>
-  /* RESET */
-  * {
-    margin:0; padding:0; box-sizing:border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #e6f0e9;
-    color: #2e4d26;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  a {
-    color: #3a7d44;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  header {
-    background-color: #4a7a3f;
-    padding: 15px 20px;
-    color: #dff1d6;
-    position: sticky;
-    top:0;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header h1 {
-    font-size: 1.5rem;
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 18px;
-  }
-  nav ul li {
-    font-weight: 600;
-  }
-  nav ul li a {
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  nav ul li a:hover {
-    background-color: #3a6d35;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juqui-Explorer</title>
+  <style>
+    /* Paleta natureza e aventura */
+    :root {
+      --verde-musgo: #3E5C3A;
+      --verde-claro: #8FCB81;
+      --marrom-terra: #5C4033;
+      --areia: #F4EBD0;
+      --branco: #ffffff;
+    }* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  main {
-    flex: 1;
-    padding: 20px;
-    max-width: 900px;
-    margin: 20px auto;
-  }
-  section {
-    margin-bottom: 40px;
-    background: #f7faf4;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 0.05);
-    padding: 20px;
-  }
-  section h2 {
-    color: #3a7d44;
-    margin-bottom: 12px;
-    border-bottom: 2px solid #6daa68;
-    padding-bottom: 6px;
-  }
-  .nature-img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-  /* Produtos grid */
-  .produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
-    gap: 18px;
-  }
-  .produto-card {
-    background: #d9f0ce;
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
-  }
-  /* Guias profiles */
-  .guias-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .guia {
-    background: #cde4b8;
-    border-radius: 12px;
-    padding: 15px;
-    flex: 1 1 250px;
-    box-shadow: 0 3px 6px rgb(0 0 0 / 0.08);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  .guia-avatar {
-    flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center center;
-    box-shadow: 0 0 5px #7aa859;
-  }
-  .guia-info h3 {
-    margin-bottom: 5px;
-    font-size: 1.1rem;
-    color: #2f5a1a;
-  }
-  .guia-info p {
-    font-size: 0.9rem;
-    color: #476f32;
-  }
-  /* Chat box */
-  #chat {
-    background: #e2f0d9;
-    border-radius: 12px;
-    max-width: 900px;
-    margin: 0 auto 40px;
-    padding: 15px;
-    box-shadow: 0 3px 7px rgb(0 0 0 / 0.1);
-  }
-  .chat-message {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  .chat-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center center;
-    box-shadow: 0 0 5px #a3cc82;
-  }
-  .chat-bubble {
-    background: #d9f0ce;
-    padding: 10px 15px;
-    border-radius: 20px;
-    max-width: 80%;
-    font-size: 0.9rem;
-    color: #2a4c1a;
-    box-shadow: 1px 1px 3px rgb(0 0 0 / 0.08);
-  }
+body {
+  background-color: var(--areia);
+  color: var(--marrom-terra);
+}
 
-  /* Form de contato */
-  form label {
-    display: block;
-    margin: 10px 0 6px 0;
-    font-weight: 600;
-  }
-  form input, form textarea {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #9bbf7f;
-    font-size: 1rem;
-    resize: vertical;
-  }
-  form textarea {
-    min-height: 80px;
-  }
-  form button {
-    margin-top: 15px;
-    background-color: #4a7a3f;
-    border: none;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  form button:hover {
-    background-color: #3a6d35;
-  }
+header {
+  background-color: var(--verde-musgo);
+  padding: 1rem 2rem;
+  color: var(--branco);
+}
 
-  footer {
-    background-color: #4a7a3f;
-    color: #dff1d6;
-    text-align: center;
-    padding: 12px 20px;
-    font-size: 0.9rem;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  /* Login */
-  #loginSection {
-    max-width: 400px;
-    margin: 0 auto 40px;
-    background: #f7faf4;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 0.05);
-  }
-  #loginSection h2 {
-    margin-bottom: 16px;
-  }
-  #loginSection input {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #9bbf7f;
-  }
-  #loginSection button {
-    width: 100%;
-    padding: 12px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    background-color: #4a7a3f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  #loginSection button:hover {
-    background-color: #3a6d35;
-  }
-  #loginFeedback {
-    font-weight: 600;
-    margin-top: 12px;
-    color: #3a7d44;
-  }
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
 
-  /* Perfil usuário */
-  #userProfile {
-    max-width: 400px;
-    margin: 0 auto 40px;
-    background: #d9f0ce;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 0.07);
-    display: none;
-    text-align: center;
-  }
-  #userProfile .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center center;
-    margin: 0 auto 15px;
-    box-shadow: 0 0 10px #7aa859;
-  }
-  #userProfile h3 {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    color: #2f5a1a;
-  }
-  #userProfile button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #3a6d35;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  #userProfile button:hover {
-    background-color: #2e4d26;
-  }
+.nav-links a {
+  color: var(--branco);
+  text-decoration: none;
+  font-weight: bold;
+}
 
-  /* Responsivo */
-  @media(max-width: 720px) {
-    nav ul {
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .guias-list {
-      flex-direction: column;
-    }
-  }
-</style>
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.user-icon img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.hero {
+  background-image: url('img/natureza-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 5rem 2rem;
+  color: var(--branco);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  background-color: var(--verde-claro);
+  color: var(--marrom-terra);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn.secundario {
+  background-color: transparent;
+  border: 2px solid var(--verde-claro);
+}
+
+.produtos-destaque {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.produtos-destaque h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.produto img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.produto h3 {
+  margin-top: 0.5rem;
+}
+
+footer {
+  background-color: var(--verde-musgo);
+  color: var(--branco);
+  text-align: center;
+  padding: 1rem;
+}
+
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Exemplo de interação futura
+      console.log("Juqui-Explorer carregado com sucesso!");
+    });
+  </script>
 </head>
 <body>
-
-<header>
-  <h1>Juqui-Explorer</h1>
-  <nav>
-    <ul>
-      <li><a href="#home">Início</a></li>
-      <li><a href="#trilhas">Trilhas</a></li>
-      <li><a href="#cachoeiras">Cachoeiras</a></li>
-      <li><a href="#produtos">Produtos</a></li>
-      <li><a href="#guias">Guias</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#contato">Contato</a></li>
-      <li><a href="#loginSection">Login</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-
-  <!-- Login -->
-  <section id="loginSection">
-    <h2>Login</h2>
-    <form id="loginForm" novalidate>
-      <input type="text" id="loginUser" name="loginUser" placeholder="Usuário" required />
-      <input type="password" id="loginPass" name="loginPass" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
-      <p id="loginFeedback"></p>
-    </form>
-  </section>
-
-  <!-- Perfil após login -->
-  <section id="userProfile">
-    <div class="avatar" id="userAvatar"></div>
-    <h3 id="userName"></h3>
-    <button id="logoutBtn">Sair</button>
-  </section>
-
-  <section id="home">
-    <h2>Bem-vindo ao Juqui-Explorer</h2>
-    <p>Seu guia digital para o ecoturismo sustentável em Juquitiba. Explore trilhas, cachoeiras, produtos locais, pousadas e guias que respeitam a natureza e promovem o turismo consciente.</p>
-    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Natureza em Juquitiba" class="nature-img" />
-  </section>
-
-  <section id="trilhas">
-    <h2>Trilhas</h2>
-    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" alt="Trilha na floresta" class="nature-img" />
-    <p>Conheça as trilhas de diferentes níveis, com mapas e informações detalhadas para garantir segurança e diversão em sua aventura.</p>
-  </section>
-
-  <section id="cachoeiras">
-    <h2>Cachoeiras</h2>
-    <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=900&q=80" alt="Cachoeira" class="nature-img" />
-    <p>Descubra cachoeiras exuberantes para se refrescar e contemplar a natureza. Respeite as regras locais e preserve o ambiente.</p>
-  </section>
-
-  <section id="produtos">
-    <h2>Produtos Locais</h2>
-    <div class="produtos-grid">
-      <div class="produto-card">Artesanato</div>
-      <div class="produto-card">Alimentos Orgânicos</div>
-      <div class="produto-card">Souvenirs</div>
-      <div class="produto-card">Produtos Personalizados</div>
-    </div>
-  </section>
-
-  <section id="guias">
-    <h2>Guias Locais</h2>
-    <div class="guias-list">
-      <div class="guia">
-        <div class="guia-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
-        <div class="guia-info">
-          <h3>Juca</h3>
-          <p>Especialista em trilhas e cultura local. Apaixonado pela natureza de Juquitiba.</p>
-        </div>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Juqui-Explorer</div>
+      <ul class="nav-links">
+        <li><a href="#">Início</a></li>
+        <li><a href="trilhas.html">Trilhas</a></li>
+        <li><a href="cachoeiras.html">Cachoeiras</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+      </ul>
+      <div class="user-icon">
+        <a href="login.html">
+          <img src="img/user-icon.png" alt="Login" title="Login / Cadastro">
+        </a>
       </div>
-      <div class="guia">
-        <div class="guia-avatar" style="background-image:url('https://randomuser.me/api/portraits/women/65.jpg')"></div>
-        <div class="guia-info">
-          <h3>Maria</h3>
-          <p>Guia experiente em ecoturismo e práticas sustentáveis.</p>
-        </div>
-      </div>
+    </nav>
+  </header>  <main>
+    <section class="hero">
+      <h1>Explore Juquitiba com a gente</h1>
+      <p>Descubra trilhas incríveis, cachoeiras escondidas e produtos que representam a essência da nossa cidade.</p>
+      <a href="trilhas.html" class="btn">Comece sua aventura</a>
+    </section><section class="produtos-destaque">
+  <h2>Produtos Personalizados</h2>
+  <div class="produtos-grid">
+    <div class="produto">
+      <img src="img/camiseta-juquitiba.jpg" alt="Camiseta Juquitiba">
+      <h3>Camiseta Juquitiba</h3>
     </div>
-  </section>
-
-  <section id="chat">
-    <h2>Chat com o Guia Juca</h2>
-    <div class="chat-message">
-      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
-      <div class="chat-bubble">Olá! Posso ajudar a planejar sua trilha hoje?</div>
+    <div class="produto">
+      <img src="img/garrafa-juquitiba.jpg" alt="Garrafa Juquitiba">
+      <h3>Garrafa Térmica</h3>
     </div>
-    <div class="chat-message" style="justify-content:flex-end; flex-direction:row-reverse;">
-      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/women/44.jpg')"></div>
-      <div class="chat-bubble" style="background:#a7d27d; color:#264b10;">Oi Juca! Quero dicas para cachoeiras.</div>
+    <div class="produto">
+      <img src="img/mochila-juquitiba.jpg" alt="Mochila Juquitiba">
+      <h3>Mochila Ecológica</h3>
     </div>
-    <div class="chat-message">
-      <div class="chat-avatar" style="background-image:url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
-      <div class="chat-bubble">Claro! Recomendo a Cachoeira da Fumaça, é linda e acessível.</div>
-    </div>
-  </section>
+  </div>
+  <a href="produtos.html" class="btn secundario">Ver todos os produtos</a>
+</section>
 
-  <section id="sobre">
-    <h2>Sobre o Juqui-Explorer</h2>
-    <p>Somos um grupo de entusiastas do ecoturismo digital, dedicados a promover o turismo sustentável e a valorização da cultura local em Juquitiba.</p>
-    <p>Nosso projeto oferece uma plataforma integrada para você conhecer trilhas, cachoeiras, produtos artesanais, pousadas e guias locais, tudo de forma simples e prática.</p>
-    <p>Queremos incentivar o respeito ao meio ambiente e o desenvolvimento econômico da região, conectando turistas e moradores de forma consciente.</p>
-  </section>
-
-  <section id="contato">
-    <h2>Contato</h2>
-    <form id="contactForm" novalidate>
-      <label for="nomeContato">Nome:</label>
-      <input type="text" id="nomeContato" name="nomeContato" placeholder="Seu nome" required />
-
-      <label for="emailContato">Email:</label>
-      <input type="email" id="emailContato" name="emailContato" placeholder="seu@email.com" required />
-
-      <label for="mensagemContato">Mensagem:</label>
-      <textarea id="mensagemContato" name="mensagemContato" placeholder="Escreva sua mensagem aqui..." required></textarea>
-
-      <button type="submit">Enviar</button>
-    </form>
-    <p id="formFeedback" style="margin-top:10px; font-weight:600; color:#3a7d44;"></p>
-  </section>
-
-</main>
-
-<footer>
-  &copy; 2025 Juqui-Explorer - Todos os direitos reservados.
-</footer>
-
-<script>
-  // Simulação simples de usuários - em app real usaria backend com autenticação
-  const usuarios = {
-    'juca': {
-      nome: 'Juca',
-      senha: '12345',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-    },
-    'maria': {
-      nome: 'Maria',
-      senha: 'abcde',
-      avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
-    }
-  };
-
-  const loginForm = document.getElementById('loginForm');
-  const loginFeedback = document.getElementById('loginFeedback');
-  const loginSection = document.getElementById('loginSection');
-  const userProfile = document.getElementById('userProfile');
-  const userAvatar = document.getElementById('userAvatar');
-  const userName = document.getElementById('userName');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const user = login
+  </main>  <footer>
+    <p>&copy; 2025 Juqui-Explorer. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
