@@ -1,68 +1,26 @@
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Juqui-Explorer</title>
+<main>
+  <div class="carousel">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Juquitiba_S%C3%A3o_Paulo.jpg" class="slide active" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Parque_Estadual_Jurupar%C3%A1.jpg" class="slide" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cachoeira_em_Juquitiba.jpg" class="slide" />
+  </div>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #F4EBD0;
-      margin: 0;
-      padding: 0;
-      color: #3E5C3A;
+    .carousel { position: relative; max-width: 100%; overflow: hidden; }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
     }
-    header {
-      background: #3E5C3A;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      text-align: center;
-      padding: 4rem 2rem;
-    }
-    .btn {
-      background: #8FCB81;
-      color: #3E5C3A;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    footer {
-      background: #3E5C3A;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
+    .active { display: block; }
   </style>
-</head>
-<body>
-  <header>
-    <div>Juqui-Explorer</div>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="trilhas.html">Trilhas</a>
-      <a href="cachoeiras.html">Cachoeiras</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="login.html">Login</a>
-    </nav>
-  </header>
-  <main>
-    <h1>Bem-vindo ao Juqui-Explorer</h1>
-    <p>Descubra trilhas e cachoeiras incríveis em Juquitiba.</p>
-    <a class="btn" href="trilhas.html">Explorar Trilhas</a>
-  </main>
-  <footer>&copy; 2025 Juqui-Explorer</footer>
-</body>
-</html>
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+    setInterval(() => {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }, 4000);
+  </script>
+</main>
