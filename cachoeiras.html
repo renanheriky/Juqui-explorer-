@@ -68,8 +68,8 @@
   <div class="container">
     <h1>Cachoeira do Engano</h1>
     <div class="fotos-local">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cachoeira_em_Juquitiba.jpg" alt="Cachoeira do Engano 1" />
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Cachoeira_trilha_juquitiba.jpg" alt="Cachoeira do Engano 2" />
+      <img src="images/cachoeira_engano.jpg" alt="Cachoeira do Engano 1" />
+      <img src="images/cachoeira_engano2.jpg" alt="Cachoeira do Engano 2" />
     </div>
     <p><strong>Duração estimada:</strong> 2h (ida e volta)</p>
     <p><strong>Dificuldade:</strong> Fácil a moderada</p>
@@ -81,8 +81,9 @@
   <footer>&copy; 2025 Juqui-Explorer</footer>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
   <script>
-    const destino = [-23.9527, -47.0703]; // Coordenadas da Cachoeira do Engano
+    const destino = L.latLng(-23.9527, -47.0703); // Cachoeira do Engano
 
     const mapa = L.map('mapa-rota').setView(destino, 13);
 
@@ -90,24 +91,26 @@
       attribution: '&copy; OpenStreetMap',
     }).addTo(mapa);
 
-    const marcadorDestino = L.marker(destino).addTo(mapa)
-      .bindPopup('Cachoeira do Engano')
-      .openPopup();
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        const origem = [pos.coords.latitude, pos.coords.longitude];
-        const marcadorOrigem = L.marker(origem).addTo(mapa)
-          .bindPopup('Você está aqui')
-          .openPopup();
+      navigator.geolocation.getCurrentPosition(position => {
+        const origem = L.latLng(position.coords.latitude, position.coords.longitude);
 
-        const rota = L.polyline([origem, destino], { color: 'green' }).addTo(mapa);
-        mapa.fitBounds(rota.getBounds());
+        L.marker(origem).addTo(mapa).bindPopup("Você está aqui").openPopup();
+        L.marker(destino).addTo(mapa).bindPopup("Cachoeira do Engano");
+
+        L.Routing.control({
+          waypoints: [origem, destino],
+          routeWhileDragging: false,
+          draggableWaypoints: false,
+          addWaypoints: false,
+          showAlternatives: false
+        }).addTo(mapa);
+
       }, () => {
-        alert('Não foi possível obter sua localização.');
+        alert("Não foi possível obter sua localização.");
       });
     } else {
-      alert('Geolocalização não suportada pelo navegador.');
+      alert("Geolocalização não suportada pelo navegador.");
     }
   </script>
 </body>
