@@ -1,19 +1,111 @@
-<main>
-  <div class="carousel">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Juquitiba_S%C3%A3o_Paulo.jpg" class="slide active" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Parque_Estadual_Jurupar%C3%A1.jpg" class="slide" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cachoeira_em_Juquitiba.jpg" class="slide" />
-  </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Juqui-Explorer</title>
   <style>
-    .carousel { position: relative; max-width: 100%; overflow: hidden; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F4EBD0;
+      color: #3E5C3A;
+    }
+
+    header {
+      background: #3E5C3A;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+
     .slide {
       display: none;
       width: 100%;
       height: 400px;
       object-fit: cover;
     }
-    .active { display: block; }
+
+    .active {
+      display: block;
+    }
+
+    main {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .btn {
+      background: #8FCB81;
+      color: #3E5C3A;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #75b769;
+    }
+
+    footer {
+      background: #3E5C3A;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
   </style>
+</head>
+<body>
+  <header>
+    <div><strong>Juqui-Explorer</strong></div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="trilhas.html">Trilhas</a>
+      <a href="cachoeiras.html">Cachoeiras</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <div class="carousel">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Juquitiba_S%C3%A3o_Paulo.jpg" class="slide active" alt="Centro de Juquitiba" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Parque_Estadual_Jurupar%C3%A1.jpg" class="slide" alt="Parque Jurupará" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cachoeira_em_Juquitiba.jpg" class="slide" alt="Cachoeira do Engano" />
+  </div>
+
+  <main>
+    <h1>Bem-vindo ao Juqui-Explorer</h1>
+    <p>Explore as belezas naturais de Juquitiba: trilhas, cachoeiras e muito mais.</p>
+    <a class="btn" href="trilhas.html">Descubra Juquitiba</a>
+  </main>
+
+  <footer>
+    &copy; 2025 Juqui-Explorer. Todos os direitos reservados.
+  </footer>
+
   <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll(".slide");
@@ -23,4 +115,5 @@
       slides[currentSlide].classList.add("active");
     }, 4000);
   </script>
-</main>
+</body>
+    </html>
