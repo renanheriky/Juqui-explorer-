@@ -2,20 +2,19 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cachoeira do Engano</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #F4EBD0;
-      color: #3E5C3A;
       margin: 0;
+      color: #3E5C3A;
     }
     header, footer {
       background: #3E5C3A;
       color: white;
-      text-align: center;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -31,26 +30,42 @@
       padding: 2rem;
       max-width: 900px;
       margin: auto;
-    }
-    .fotos-local {
       text-align: center;
     }
     .fotos-local img {
       width: 100%;
       max-width: 600px;
       border-radius: 10px;
-      margin: 1rem 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      margin: 1rem auto;
+      display: block;
     }
-    .fotos-local img:hover {
-      transform: scale(1.03);
-    }
-    #mapa-rota {
-      height: 400px;
-      width: 100%;
-      border-radius: 10px;
+    .info {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
       margin-top: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #map {
+      width: 100%;
+      height: 400px;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+    .waze-button {
+      margin-top: 1.5rem;
+    }
+    .waze-button button {
+      padding: 0.8rem 1.5rem;
+      background: #3E5C3A;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .waze-button button:hover {
+      background: #2E4430;
     }
   </style>
 </head>
@@ -68,51 +83,40 @@
 
   <div class="container">
     <h1>Cachoeira do Engano</h1>
-    <div class="fotos-local">
-      <img src="images/cachoeira_engano.jpg" alt="Cachoeira do Engano 1" />
-      <img src="images/cachoeira_engano2.jpg" alt="Cachoeira do Engano 2" />
-    </div>
-    <p><strong>Duração estimada:</strong> 2h (ida e volta)</p>
-    <p><strong>Dificuldade:</strong> Fácil a moderada</p>
-    <p><strong>Dicas:</strong> Leve roupa extra, atenção ao terreno escorregadio e respeite os limites da trilha.</p>
 
-    <div id="mapa-rota"></div>
+    <div class="fotos-local">
+      <img src="images/cachoeira_engano.jpg" alt="Cachoeira do Engano" />
+      <img src="images/cachoeira_engano2.jpg" alt="Cachoeira Juquitiba" />
+    </div>
+
+    <div class="info">
+      <p><strong>Duração estimada:</strong> 2h (ida e volta)</p>
+      <p><strong>Dificuldade:</strong> Fácil a moderada</p>
+      <p><strong>Dicas:</strong> Leve roupa extra, atenção ao terreno escorregadio e respeite os limites da trilha.</p>
+
+      <div id="map"></div>
+
+      <div class="waze-button">
+        <a href="https://www.waze.com/ul?q=Cachoeira do Engano Juquitiba&navigate=yes" target="_blank">
+          <button>Abrir no Waze</button>
+        </a>
+      </div>
+    </div>
   </div>
 
   <footer>&copy; 2025 Juqui-Explorer</footer>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
   <script>
-    const destino = L.latLng(-23.9527, -47.0703); // Cachoeira do Engano
-
-    const mapa = L.map('mapa-rota').setView(destino, 13);
+    const map = L.map('map').setView([-24.003349, -47.160931], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap',
-    }).addTo(mapa);
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const origem = L.latLng(position.coords.latitude, position.coords.longitude);
-
-        L.marker(origem).addTo(mapa).bindPopup("Você está aqui").openPopup();
-        L.marker(destino).addTo(mapa).bindPopup("Cachoeira do Engano");
-
-        L.Routing.control({
-          waypoints: [origem, destino],
-          routeWhileDragging: false,
-          draggableWaypoints: false,
-          addWaypoints: false,
-          showAlternatives: false
-        }).addTo(mapa);
-
-      }, () => {
-        alert("Não foi possível obter sua localização.");
-      });
-    } else {
-      alert("Geolocalização não suportada pelo navegador.");
-    }
+    L.marker([-24.003349, -47.160931]).addTo(map)
+      .bindPopup('Cachoeira do Engano')
+      .openPopup();
   </script>
 </body>
 </html>
