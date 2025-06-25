@@ -2,15 +2,15 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trilha - Parque Jurupará</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trilha Parque Jurupará</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #F4EBD0;
-      color: #3E5C3A;
       margin: 0;
+      color: #3E5C3A;
     }
     header, footer {
       background: #3E5C3A;
@@ -31,25 +31,36 @@
       max-width: 900px;
       margin: auto;
     }
-    .fotos-local {
-      text-align: center;
-    }
     .fotos-local img {
       width: 100%;
       max-width: 600px;
       border-radius: 10px;
       margin: 1rem 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
     }
-    .fotos-local img:hover {
-      transform: scale(1.03);
+    .info {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
     }
-    #mapa-rota {
-      height: 400px;
+    #map {
       width: 100%;
+      height: 400px;
       border-radius: 10px;
-      margin-top: 2rem;
+      margin-top: 1rem;
+    }
+    #startRoute {
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background: #3E5C3A;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #startRoute:hover {
+      background: #2E4430;
     }
   </style>
 </head>
@@ -67,51 +78,62 @@
 
   <div class="container">
     <h1>Trilha Parque Jurupará</h1>
-    <div class="fotos-local">
-      <img src="images/parque_jurupara.jpg" alt="Parque Jurupará 1" />
-      <img src="images/parque_jurupara2.jpg" alt="Parque Jurupará 2" />
-    </div>
-    <p><strong>Duração estimada:</strong> 3h a 4h (ida e volta)</p>
-    <p><strong>Dificuldade:</strong> Moderada</p>
-    <p><strong>Dicas:</strong> Leve água, protetor solar, roupas leves e cuide da natureza.</p>
 
-    <div id="mapa-rota"></div>
+    <div class="fotos-local">
+      <img src="images/parque_jurupara.jpg" alt="Parque Jurupará" />
+      <img src="images/parque_jurupara2.jpg" alt="Parque Jurupará Trilha" />
+    </div>
+
+    <div class="info">
+      <p><strong>Duração estimada:</strong> 3h a 4h (ida e volta)</p>
+      <p><strong>Dificuldade:</strong> Moderada</p>
+      <p><strong>Dicas:</strong> Leve água, protetor solar, roupas leves e cuide da natureza.</p>
+
+      <button id="startRoute">Iniciar trajeto</button>
+      <div id="map"></div>
+    </div>
   </div>
 
   <footer>&copy; 2025 Juqui-Explorer</footer>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
   <script>
-    const destino = L.latLng(-23.9750, -47.0235); // Parque Jurupará
-
-    const mapa = L.map('mapa-rota').setView(destino, 13);
+    const map = L.map('map').setView([-23.885662, -47.331848], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap',
-    }).addTo(mapa);
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const origem = L.latLng(position.coords.latitude, position.coords.longitude);
+    let control;
 
-        L.marker(origem).addTo(mapa).bindPopup("Você está aqui").openPopup();
-        L.marker(destino).addTo(mapa).bindPopup("Parque Jurupará");
+    document.getElementById('startRoute').addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
+          const destino = L.latLng(-23.885662, -47.331848);
 
-        L.Routing.control({
-          waypoints: [origem, destino],
-          routeWhileDragging: false,
-          draggableWaypoints: false,
-          addWaypoints: false,
-          showAlternatives: false
-        }).addTo(mapa);
+          if (control) map.removeControl(control);
 
-      }, () => {
-        alert("Não foi possível obter sua localização.");
-      });
-    } else {
-      alert("Geolocalização não suportada pelo navegador.");
-    }
+          control = L.Routing.control({
+            waypoints: [userLatLng, destino],
+            createMarker: function(i, wp) {
+              return L.marker(wp.latLng, {
+                icon: L.icon({
+                  iconUrl: i === 0 ? 'https://cdn-icons-png.flaticon.com/512/684/684908.png' : 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
+                  iconSize: [30, 30],
+                  iconAnchor: [15, 30]
+                })
+              });
+            }
+          }).addTo(map);
+        }, () => {
+          alert('Não foi possível acessar sua localização.');
+        });
+      } else {
+        alert('Seu navegador não suporta geolocalização.');
+      }
+    });
   </script>
 </body>
 </html>
