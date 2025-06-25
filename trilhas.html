@@ -52,8 +52,10 @@
       border-radius: 10px;
       margin-top: 1rem;
     }
-    #startRoute {
-      margin-top: 1rem;
+    .waze-button {
+      margin-top: 1.5rem;
+    }
+    .waze-button button {
       padding: 0.8rem 1.5rem;
       background: #3E5C3A;
       color: white;
@@ -62,7 +64,7 @@
       font-size: 1rem;
       cursor: pointer;
     }
-    #startRoute:hover {
+    .waze-button button:hover {
       background: #2E4430;
     }
   </style>
@@ -92,15 +94,19 @@
       <p><strong>Dificuldade:</strong> Moderada</p>
       <p><strong>Dicas:</strong> Leve água, protetor solar, roupas leves e cuide da natureza.</p>
 
-      <button id="startRoute">Iniciar trajeto</button>
       <div id="map"></div>
+
+      <div class="waze-button">
+        <a href="https://waze.com/ul?ll=-23.885662,-47.331848&navigate=yes" target="_blank">
+          <button>Abrir no Waze</button>
+        </a>
+      </div>
     </div>
   </div>
 
   <footer>&copy; 2025 Juqui-Explorer</footer>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
   <script>
     const map = L.map('map').setView([-23.885662, -47.331848], 13);
 
@@ -108,36 +114,9 @@
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    let control;
-
-    document.getElementById('startRoute').addEventListener('click', () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
-          const destino = L.latLng(-23.885662, -47.331848);
-
-          if (control) map.removeControl(control);
-
-          control = L.Routing.control({
-            waypoints: [userLatLng, destino],
-            routeWhileDragging: false,
-            createMarker: function(i, wp) {
-              return L.marker(wp.latLng, {
-                icon: L.icon({
-                  iconUrl: i === 0 ? 'https://cdn-icons-png.flaticon.com/512/684/684908.png' : 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
-                  iconSize: [30, 30],
-                  iconAnchor: [15, 30]
-                })
-              });
-            }
-          }).addTo(map);
-        }, () => {
-          alert('Não foi possível acessar sua localização.');
-        });
-      } else {
-        alert('Seu navegador não suporta geolocalização.');
-      }
-    });
+    L.marker([-23.885662, -47.331848]).addTo(map)
+      .bindPopup('Parque Jurupará')
+      .openPopup();
   </script>
 </body>
 </html>
