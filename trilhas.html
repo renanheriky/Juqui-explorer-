@@ -68,8 +68,8 @@
   <div class="container">
     <h1>Trilha Parque Jurupará</h1>
     <div class="fotos-local">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Parque_Estadual_Jurupar%C3%A1.jpg" alt="Parque Jurupará 1" />
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Jurupara_trilha.jpg" alt="Parque Jurupará 2" />
+      <img src="images/parque_jurupara.jpg" alt="Parque Jurupará 1" />
+      <img src="images/parque_jurupara2.jpg" alt="Parque Jurupará 2" />
     </div>
     <p><strong>Duração estimada:</strong> 3h a 4h (ida e volta)</p>
     <p><strong>Dificuldade:</strong> Moderada</p>
@@ -81,8 +81,9 @@
   <footer>&copy; 2025 Juqui-Explorer</footer>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
   <script>
-    const destino = [-23.9750, -47.0235]; // Coordenadas aproximadas Parque Jurupará
+    const destino = L.latLng(-23.9750, -47.0235); // Parque Jurupará
 
     const mapa = L.map('mapa-rota').setView(destino, 13);
 
@@ -90,15 +91,27 @@
       attribution: '&copy; OpenStreetMap',
     }).addTo(mapa);
 
-    const marcadorDestino = L.marker(destino).addTo(mapa)
-      .bindPopup('Parque Jurupará')
-      .openPopup();
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        const origem = [pos.coords.latitude, pos.coords.longitude];
-        const marcadorOrigem = L.marker(origem).addTo(mapa)
-          .bindPopup('Você está aqui')
-          .openPopup();
+      navigator.geolocation.getCurrentPosition(position => {
+        const origem = L.latLng(position.coords.latitude, position.coords.longitude);
 
-        const rota = L.polyline([origem, destino], { color:
+        L.marker(origem).addTo(mapa).bindPopup("Você está aqui").openPopup();
+        L.marker(destino).addTo(mapa).bindPopup("Parque Jurupará");
+
+        L.Routing.control({
+          waypoints: [origem, destino],
+          routeWhileDragging: false,
+          draggableWaypoints: false,
+          addWaypoints: false,
+          showAlternatives: false
+        }).addTo(mapa);
+
+      }, () => {
+        alert("Não foi possível obter sua localização.");
+      });
+    } else {
+      alert("Geolocalização não suportada pelo navegador.");
+    }
+  </script>
+</body>
+</html>
