@@ -16,7 +16,7 @@
       min-height: 100vh;
     }
 
-    header, footer {
+    header {
       background: #3E5C3A;
       color: white;
       padding: 1rem 2rem;
@@ -61,6 +61,7 @@
       height: 400px;
       border-radius: 10px;
       margin-top: 1rem;
+      flex-shrink: 0;
     }
 
     .waze-button {
@@ -79,6 +80,16 @@
 
     .waze-button button:hover {
       background: #2E4430;
+    }
+
+    footer {
+      background: #3E5C3A;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   </style>
 </head>
