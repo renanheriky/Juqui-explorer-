@@ -6,14 +6,31 @@
   <title>Juqui-Explorer</title>
   <style>
     body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; background:#F4EBD0; color:#3E5C3A; }
-    header { background:#3E5C3A; color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
-    nav a { color:#fff; margin:0 1rem; text-decoration:none; font-weight:bold; }
-    .carousel { position:relative; max-width:100%; height:400px; overflow:hidden; }
-    .slide { display:none; width:100%; height:400px; object-fit:cover; }
+    header { background:#3E5C3A; color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000; }
+    nav a { color:#fff; margin:0 1rem; text-decoration:none; font-weight:bold; transition:0.3s; }
+    nav a:hover { color:#8FCB81; }
+    
+    /* Carrossel */
+    .carousel { position:relative; max-width:100%; height:500px; overflow:hidden; }
+    .slide { display:none; width:100%; height:500px; object-fit:cover; }
     .active { display:block; }
-    main { text-align:center; padding:3rem 2rem; }
+    .carousel-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; text-shadow:2px 2px 5px rgba(0,0,0,0.7); text-align:center; }
+    .carousel-text h1 { font-size:3rem; margin-bottom:1rem; }
+    .carousel-text p { font-size:1.3rem; }
+    
+    /* Botão */
     .btn { background:#8FCB81; color:#3E5C3A; padding:1rem 2rem; text-decoration:none; border-radius:8px; font-weight:bold; font-size:1.2rem; margin-top:2rem; display:inline-block; transition:0.3s; }
     .btn:hover { background:#75b769; }
+    
+    /* Seção principal */
+    main { text-align:center; padding:3rem 2rem; }
+    
+    /* Destaques */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; margin-top:3rem; }
+    .card { background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+    .card img { width:100%; border-radius:12px; height:180px; object-fit:cover; }
+    .card h3 { margin:1rem 0 0.5rem; }
+    
     footer { background:#3E5C3A; color:#fff; text-align:center; padding:1rem; margin-top:2rem; }
   </style>
 </head>
@@ -29,15 +46,37 @@
     </nav>
   </header>
 
+  <!-- Carrossel -->
   <div class="carousel">
     <img src="images/juquitiba_centro.jpg" class="slide active" alt="Centro de Juquitiba" />
-  
+    <img src="images/cachoeira_franca.jpg" class="slide" alt="Cachoeira do França" />
+    <img src="images/trilha_mata.jpg" class="slide" alt="Trilha na Mata Atlântica" />
+    <div class="carousel-text">
+      <h1>Descubra Juquitiba</h1>
+      <p>Natureza, aventura e ecoturismo sustentável</p>
+      <a class="btn" href="trilhas.html">Explorar Agora</a>
+    </div>
   </div>
 
   <main>
-    <h1>Bem-vindo ao Juqui-Explorer</h1>
-    <p>Explore as belezas naturais de Juquitiba: trilhas, cachoeiras e muito mais.</p>
-    <a class="btn" href="trilhas.html">Descubra Juquitiba</a>
+    <h2>Destaques do Ecoturismo</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="images/trilha_card.jpg" alt="Trilha">
+        <h3>Trilhas</h3>
+        <p>Explore trilhas incríveis no coração da Mata Atlântica.</p>
+      </div>
+      <div class="card">
+        <img src="images/cachoeira_card.jpg" alt="Cachoeira">
+        <h3>Cachoeiras</h3>
+        <p>Descubra cachoeiras paradisíacas e cristalinas.</p>
+      </div>
+      <div class="card">
+        <img src="images/pousada_card.jpg" alt="Pousada">
+        <h3>Pousadas</h3>
+        <p>Descanse em hospedagens confortáveis junto à natureza.</p>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -51,7 +90,7 @@
       slides[currentSlide].classList.remove("active");
       currentSlide = (currentSlide + 1) % slides.length;
       slides[currentSlide].classList.add("active");
-    }, 4000);
+    }, 5000);
   </script>
 </body>
 </html>
