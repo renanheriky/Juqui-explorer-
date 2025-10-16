@@ -1,96 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Juqui-Explorer</title>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; background:#F4EBD0; color:#3E5C3A; }
-    header { background:#3E5C3A; color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000; }
-    nav a { color:#fff; margin:0 1rem; text-decoration:none; font-weight:bold; transition:0.3s; }
-    nav a:hover { color:#8FCB81; }
-    
-    /* Carrossel */
-    .carousel { position:relative; max-width:100%; height:500px; overflow:hidden; }
-    .slide { display:none; width:100%; height:500px; object-fit:cover; }
-    .active { display:block; }
-    .carousel-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; text-shadow:2px 2px 5px rgba(0,0,0,0.7); text-align:center; }
-    .carousel-text h1 { font-size:3rem; margin-bottom:1rem; }
-    .carousel-text p { font-size:1.3rem; }
-    
-    /* Botão */
-    .btn { background:#8FCB81; color:#3E5C3A; padding:1rem 2rem; text-decoration:none; border-radius:8px; font-weight:bold; font-size:1.2rem; margin-top:2rem; display:inline-block; transition:0.3s; }
-    .btn:hover { background:#75b769; }
-    
-    /* Seção principal */
-    main { text-align:center; padding:3rem 2rem; }
-    
-    /* Destaques */
-    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; margin-top:3rem; }
-    .card { background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
-    .card img { width:100%; border-radius:12px; height:180px; object-fit:cover; }
-    .card h3 { margin:1rem 0 0.5rem; }
-    
-    footer { background:#3E5C3A; color:#fff; text-align:center; padding:1rem; margin-top:2rem; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juqui-explorer — Ecoturismo Sustentável em Juquitiba</title>
+  <meta name="description" content="Explore trilhas, cachoeiras, pousadas e guias locais em Juquitiba. Mapa interativo, guias, downloads de GPX e loja de produtos locais." />
+  <meta property="og:title" content="Juqui-explorer — Ecoturismo Sustentável em Juquitiba" />
+  <meta property="og:description" content="Trilhas, cachoeiras, pousadas e guias locais — tudo para seu turismo sustentável." />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <header>
-    <div><strong>Juqui-Explorer</strong></div>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="trilhas.html">Trilhas</a>
-      <a href="cachoeiras.html">Cachoeiras</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="login.html">Login</a>
-    </nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="/assets/logo.svg" alt="Juqui-explorer logo" width="48" height="48">
+        <span>Juqui-explorer</span>
+      </a>
+      <nav class="main-nav" aria-label="Menu principal">
+        <a href="index.html">Home</a>
+        <a href="trilhas.html">Trilhas</a>
+        <a href="cachoeiras.html">Cachoeiras</a>
+        <a href="mapa.html">Mapa</a>
+        <a href="pousadas.html">Pousadas & Guias</a>
+        <a href="loja.html">Loja</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html" class="btn-outline">Contato</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Carrossel -->
-  <div class="carousel">
-    <img src="images/juquitiba_centro.jpg" class="slide active" alt="Centro de Juquitiba" />
-    <img src="images/cachoeira_franca.jpg" class="slide" alt="Cachoeira do França" />
-    <img src="images/trilha_mata.jpg" class="slide" alt="Trilha na Mata Atlântica" />
-    <div class="carousel-text">
-      <h1>Descubra Juquitiba</h1>
-      <p>Natureza, aventura e ecoturismo sustentável</p>
-      <a class="btn" href="trilhas.html">Explorar Agora</a>
-    </div>
-  </div>
-
   <main>
-    <h2>Destaques do Ecoturismo</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="images/trilha_card.jpg" alt="Trilha">
-        <h3>Trilhas</h3>
-        <p>Explore trilhas incríveis no coração da Mata Atlântica.</p>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1>Explore Juquitiba — trilhas, cachoeiras e turismo sustentável</h1>
+          <p class="subtitle">Mapas interativos, guias locais e produtos que valorizam a comunidade.</p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="mapa.html">Ver o mapa</a>
+            <a class="btn-ghost" href="trilhas.html">Trilhas populares</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div id="mini-map" class="mini-map" aria-hidden="false"></div>
+        </div>
       </div>
-      <div class="card">
-        <img src="images/cachoeira_card.jpg" alt="Cachoeira">
-        <h3>Cachoeiras</h3>
-        <p>Descubra cachoeiras paradisíacas e cristalinas.</p>
+    </section>
+
+    <section class="destaques container">
+      <h2>Destaques</h2>
+      <div class="cards">
+        <article class="card">
+          <img loading="lazy" src="/assets/trilhas/pedra1.jpg" alt="Trilhas populares">
+          <h3>Trilhas Populares</h3>
+          <p>Seleção de trilhas com níveis variados — do passeio leve à aventura técnica.</p>
+          <a href="trilhas.html">Ver trilhas</a>
+        </article>
+        <article class="card">
+          <img loading="lazy" src="/assets/cachoeiras/cachoeira1.jpg" alt="Cachoeiras imperdíveis">
+          <h3>Cachoeiras Imperdíveis</h3>
+          <p>Águas cristalinas e pontos para banho — informações de segurança em cada página.</p>
+          <a href="cachoeiras.html">Ver cachoeiras</a>
+        </article>
+        <article class="card">
+          <img loading="lazy" src="/assets/loja/produto1.jpg" alt="Produtos locais">
+          <h3>Produtos Locais</h3>
+          <p>Loja com peças artesanais e souvenirs sustentáveis produzidos por moradores.</p>
+          <a href="loja.html">Visitar loja</a>
+        </article>
       </div>
-      <div class="card">
-        <img src="images/pousada_card.jpg" alt="Pousada">
-        <h3>Pousadas</h3>
-        <p>Descanse em hospedagens confortáveis junto à natureza.</p>
+    </section>
+
+    <section class="testemunhos container">
+      <h2>O que dizem os visitantes</h2>
+      <div class="testimonials">
+        <blockquote>“Trilhas bem descritas — usamos o GPX e foi perfeito.” <cite>— Marina, SP</cite></blockquote>
+        <blockquote>“Contratamos guia local indicado aqui; a experiência foi segura e responsável.” <cite>— João, Campinas</cite></blockquote>
       </div>
-    </div>
+    </section>
+
+    <section class="newsletter container">
+      <h3>Receba dicas e novidades</h3>
+      <form id="newsletter-form" aria-label="Formulário newsletter">
+        <label for="nl-email">E-mail</label>
+        <input id="nl-email" type="email" placeholder="seu@email.com" required>
+        <button class="btn-primary" type="submit">Inscrever</button>
+      </form>
+    </section>
   </main>
 
-  <footer>
-    &copy; 2025 Juqui-Explorer. Todos os direitos reservados.
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <h4>Juqui-explorer</h4>
+        <p>Promovendo turismo sustentável em Juquitiba — mapa, trilhas e comunidade.</p>
+      </div>
+      <div>
+        <h5>Links</h5>
+        <ul>
+          <li><a href="trilhas.html">Trilhas</a></li>
+          <li><a href="mapa.html">Mapa</a></li>
+          <li><a href="loja.html">Loja</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contato</h5>
+        <p><a href="mailto:contato@juqui-explorer.org">contato@juqui-explorer.org</a></p>
+        <p>WhatsApp: +55 11 9XXXX-XXXX</p>
+      </div>
+    </div>
+    <div class="credits">
+      <div class="container">© <span id="ano"></span> Juqui-explorer — Projeto: Andreina, Cláudia, Gabrielle, Michele, Priscila e Renan. Orientador: Waldiney Teodozio.</div>
+    </div>
   </footer>
 
   <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".slide");
-    setInterval(() => {
-      slides[currentSlide].classList.remove("active");
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add("active");
-    }, 5000);
+    // small initialization: year and mini map
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    // mini map: created after app.js loads points (app.js will call createMiniMap if present)
+    window._juqui_ready = function() {
+      // placeholder in case app.js didn't create mini map
+      if (!window._mini_map_created) {
+        const map = L.map('mini-map', { scrollWheelZoom: false }).setView([-23.9, -47.0], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+      }
+    };
   </script>
 </body>
 </html>
