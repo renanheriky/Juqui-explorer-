@@ -1,146 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trilha Parque Jurupará</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #F4EBD0;
-      margin: 0;
-      color: #3E5C3A;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #3E5C3A;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .container {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-      flex: 1;
-    }
-
-    .fotos-local img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      margin: 1rem auto;
-      display: block;
-    }
-
-    .info {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-top: 2rem;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #map {
-      width: 100%;
-      height: 400px;
-      border-radius: 10px;
-      margin-top: 1rem;
-      flex-shrink: 0; /* ESSENCIAL para manter a proporção */
-    }
-
-    .waze-button {
-      margin-top: 1.5rem;
-    }
-
-    .waze-button button {
-      padding: 0.8rem 1.5rem;
-      background: #3E5C3A;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .waze-button button:hover {
-      background: #2E4430;
-    }
-
-    footer {
-      background: #3E5C3A;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trilhas — Juqui-explorer</title>
+  <meta name="description" content="Lista de trilhas em Juquitiba. Filtre por dificuldade, distância e mais." />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <header>
-    <div>Juqui-Explorer</div>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="trilhas.html">Trilhas</a>
-      <a href="cachoeiras.html">Cachoeiras</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="login.html">Login</a>
-    </nav>
+  <header class="site-header small">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><img src="/assets/logo.svg" alt="logo"> Juqui-explorer</a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="trilhas.html">Trilhas</a>
+        <a href="mapa.html">Mapa</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="container">
-    <h1>Trilha Parque Jurupará</h1>
+  <main class="container">
+    <h1>Trilhas</h1>
 
-    <div class="fotos-local">
-      <img src="images/parque_jurupara.jpg" alt="Parque Jurupará" />
-      <img src="images/parque_jurupara2.jpg" alt="Parque Jurupará Trilha" />
-    </div>
+    <section class="filters">
+      <label for="filtro-texto">Pesquisar</label>
+      <input id="filtro-texto" type="search" placeholder="Nome, tag ou local">
+      <label for="filtro-dificuldade">Dificuldade</label>
+      <select id="filtro-dificuldade">
+        <option value="">Todas</option>
+        <option>fácil</option>
+        <option>média</option>
+        <option>difícil</option>
+      </select>
+      <label for="filtro-max-dist">Máx. distância (km)</label>
+      <input id="filtro-max-dist" type="number" min="0" step="0.1" placeholder="ex: 10">
+      <button id="btn-aplicar-filtros" class="btn-primary">Aplicar</button>
+      <button id="btn-limpar-filtros" class="btn-ghost">Limpar</button>
+    </section>
 
-    <div class="info">
-      <p><strong>Duração estimada:</strong> 3h a 4h (ida e volta)</p>
-      <p><strong>Dificuldade:</strong> Moderada</p>
-      <p><strong>Dicas:</strong> Leve água, protetor solar, roupas leves e cuide da natureza.</p>
+    <section id="lista-trilhas" class="lista-pontos" aria-live="polite">
+      <!-- preenchido por app.js -->
+    </section>
 
-      <div id="map"></div>
+    <template id="card-template">
+      <article class="point-card">
+        <img class="point-img" loading="lazy" alt="">
+        <div class="point-content">
+          <h3 class="point-title"></h3>
+          <p class="point-desc"></p>
+          <ul class="point-meta"></ul>
+          <div class="card-actions">
+            <a class="btn-outline btn-detalhes" href="#">Detalhes</a>
+            <a class="btn-primary btn-guides" href="#">Agendar guia</a>
+            <a class="btn-ghost btn-gpx" href="#" download>Baixar GPX</a>
+          </div>
+        </div>
+      </article>
+    </template>
 
-      <div class="waze-button">
-        <a href="https://www.waze.com/ul?q=Parque Estadual do Jurupará&navigate=yes" target="_blank">
-          <button>Abrir no Waze</button>
-        </a>
-      </div>
-    </div>
-  </div>
+  </main>
 
-  <footer>&copy; 2025 Juqui-Explorer</footer>
+  <footer class="site-footer small">
+    <div class="container">© <span id="ano2"></span> Juqui-explorer</div>
+  </footer>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([-23.885662, -47.331848], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    L.marker([-23.885662, -47.331848]).addTo(map)
-      .bindPopup('Parque Estadual do Jurupará')
-      .openPopup();
+    document.getElementById('ano2').textContent = new Date().getFullYear();
+    // app.js will attach behavior (load points, render list, filter)
   </script>
 </body>
 </html>
