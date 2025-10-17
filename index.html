@@ -1,134 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Juqui-explorer — Ecoturismo Sustentável em Juquitiba</title>
-  <meta name="description" content="Explore trilhas, cachoeiras, pousadas e guias locais em Juquitiba. Mapa interativo, guias, downloads de GPX e loja de produtos locais." />
-  <meta property="og:title" content="Juqui-explorer — Ecoturismo Sustentável em Juquitiba" />
-  <meta property="og:description" content="Trilhas, cachoeiras, pousadas e guias locais — tudo para seu turismo sustentável." />
-  <meta property="og:image" content="/assets/og-image.jpg" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juqui-explorer | Ecoturismo em Juquitiba</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <img src="/assets/logo.svg" alt="Juqui-explorer logo" width="48" height="48">
-        <span>Juqui-explorer</span>
-      </a>
-      <nav class="main-nav" aria-label="Menu principal">
-        <a href="index.html">Home</a>
-        <a href="trilhas.html">Trilhas</a>
-        <a href="cachoeiras.html">Cachoeiras</a>
-        <a href="mapa.html">Mapa</a>
-        <a href="pousadas.html">Pousadas & Guias</a>
-        <a href="loja.html">Loja</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="contato.html" class="btn-outline">Contato</a>
-      </nav>
-    </div>
+  <header>
+    <h1>Juqui-explorer</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="trilhas.html">Trilhas</a></li>
+        <li><a href="pousadas.html">Pousadas</a></li>
+        <li><a href="mapa.html">Mapa</a></li>
+        <li><a href="loja.html">Loja</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
   </header>
-
   <main>
     <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <h1>Explore Juquitiba — trilhas, cachoeiras e turismo sustentável</h1>
-          <p class="subtitle">Mapas interativos, guias locais e produtos que valorizam a comunidade.</p>
-          <div class="hero-ctas">
-            <a class="btn-primary" href="mapa.html">Ver o mapa</a>
-            <a class="btn-ghost" href="trilhas.html">Trilhas populares</a>
-          </div>
-        </div>
-        <div class="hero-media">
-          <div id="mini-map" class="mini-map" aria-hidden="false"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="destaques container">
-      <h2>Destaques</h2>
-      <div class="cards">
-        <article class="card">
-          <img loading="lazy" src="/assets/trilhas/pedra1.jpg" alt="Trilhas populares">
-          <h3>Trilhas Populares</h3>
-          <p>Seleção de trilhas com níveis variados — do passeio leve à aventura técnica.</p>
-          <a href="trilhas.html">Ver trilhas</a>
-        </article>
-        <article class="card">
-          <img loading="lazy" src="/assets/cachoeiras/cachoeira1.jpg" alt="Cachoeiras imperdíveis">
-          <h3>Cachoeiras Imperdíveis</h3>
-          <p>Águas cristalinas e pontos para banho — informações de segurança em cada página.</p>
-          <a href="cachoeiras.html">Ver cachoeiras</a>
-        </article>
-        <article class="card">
-          <img loading="lazy" src="/assets/loja/produto1.jpg" alt="Produtos locais">
-          <h3>Produtos Locais</h3>
-          <p>Loja com peças artesanais e souvenirs sustentáveis produzidos por moradores.</p>
-          <a href="loja.html">Visitar loja</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="testemunhos container">
-      <h2>O que dizem os visitantes</h2>
-      <div class="testimonials">
-        <blockquote>“Trilhas bem descritas — usamos o GPX e foi perfeito.” <cite>— Marina, SP</cite></blockquote>
-        <blockquote>“Contratamos guia local indicado aqui; a experiência foi segura e responsável.” <cite>— João, Campinas</cite></blockquote>
-      </div>
-    </section>
-
-    <section class="newsletter container">
-      <h3>Receba dicas e novidades</h3>
-      <form id="newsletter-form" aria-label="Formulário newsletter">
-        <label for="nl-email">E-mail</label>
-        <input id="nl-email" type="email" placeholder="seu@email.com" required>
-        <button class="btn-primary" type="submit">Inscrever</button>
-      </form>
+      <h2>Descubra Juquitiba de um jeito sustentável</h2>
+      <p>Explore trilhas, cachoeiras e pousadas em harmonia com a natureza.</p>
+      <a href="trilhas.html" class="btn">Explorar trilhas</a>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <h4>Juqui-explorer</h4>
-        <p>Promovendo turismo sustentável em Juquitiba — mapa, trilhas e comunidade.</p>
-      </div>
-      <div>
-        <h5>Links</h5>
-        <ul>
-          <li><a href="trilhas.html">Trilhas</a></li>
-          <li><a href="mapa.html">Mapa</a></li>
-          <li><a href="loja.html">Loja</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Contato</h5>
-        <p><a href="mailto:contato@juqui-explorer.org">contato@juqui-explorer.org</a></p>
-        <p>WhatsApp: +55 11 9XXXX-XXXX</p>
-      </div>
-    </div>
-    <div class="credits">
-      <div class="container">© <span id="ano"></span> Juqui-explorer — Projeto: Andreina, Cláudia, Gabrielle, Michele, Priscila e Renan. Orientador: Waldiney Teodozio.</div>
-    </div>
+  <footer>
+    <p>© 2025 Juqui-explorer | Turismo Sustentável em Juquitiba</p>
   </footer>
-
-  <script>
-    // small initialization: year and mini map
-    document.getElementById('ano').textContent = new Date().getFullYear();
-
-    // mini map: created after app.js loads points (app.js will call createMiniMap if present)
-    window._juqui_ready = function() {
-      // placeholder in case app.js didn't create mini map
-      if (!window._mini_map_created) {
-        const map = L.map('mini-map', { scrollWheelZoom: false }).setView([-23.9, -47.0], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-      }
-    };
-  </script>
 </body>
 </html>
