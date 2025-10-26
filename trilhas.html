@@ -1,73 +1,62 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trilhas — Juqui-explorer</title>
-  <meta name="description" content="Lista de trilhas em Juquitiba. Filtre por dificuldade, distância e mais." />
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trilhas — Juqui-Explorer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header small">
-    <div class="container header-inner">
-      <a class="brand" href="index.html"><img src="/assets/logo.svg" alt="logo"> Juqui-explorer</a>
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="trilhas.html">Trilhas</a>
-        <a href="mapa.html">Mapa</a>
+  <!-- Reaproveita o mesmo header (cole manualmente igual ao index) -->
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <img src="assets/images/logo.png" alt="Logo">
+        <div>Juqui-Explorer<br><small style="opacity:0.9">Trilhas</small></div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Início</a>
+        <a href="trilhas.html" class="active">Trilhas</a>
+        <a href="cachoeiras.html">Cachoeiras</a>
+        <a href="pousadas.html">Pousadas</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a id="nav-user" href="profile.html">Entrar / Cad.</a>
       </nav>
+      <button class="menu-toggle">☰</button>
     </div>
   </header>
 
   <main class="container">
-    <h1>Trilhas</h1>
+    <div class="section">
+      <h1>Trilhas</h1>
+      <p>Aqui listamos as principais trilhas, com classificação de dificuldade, dicas do que levar e mapa interativo (embed de mapa será incluído futuramente).</p>
 
-    <section class="filters">
-      <label for="filtro-texto">Pesquisar</label>
-      <input id="filtro-texto" type="search" placeholder="Nome, tag ou local">
-      <label for="filtro-dificuldade">Dificuldade</label>
-      <select id="filtro-dificuldade">
-        <option value="">Todas</option>
-        <option>fácil</option>
-        <option>média</option>
-        <option>difícil</option>
-      </select>
-      <label for="filtro-max-dist">Máx. distância (km)</label>
-      <input id="filtro-max-dist" type="number" min="0" step="0.1" placeholder="ex: 10">
-      <button id="btn-aplicar-filtros" class="btn-primary">Aplicar</button>
-      <button id="btn-limpar-filtros" class="btn-ghost">Limpar</button>
-    </section>
-
-    <section id="lista-trilhas" class="lista-pontos" aria-live="polite">
-      <!-- preenchido por app.js -->
-    </section>
-
-    <template id="card-template">
-      <article class="point-card">
-        <img class="point-img" loading="lazy" alt="">
-        <div class="point-content">
-          <h3 class="point-title"></h3>
-          <p class="point-desc"></p>
-          <ul class="point-meta"></ul>
-          <div class="card-actions">
-            <a class="btn-outline btn-detalhes" href="#">Detalhes</a>
-            <a class="btn-primary btn-guides" href="#">Agendar guia</a>
-            <a class="btn-ghost btn-gpx" href="#" download>Baixar GPX</a>
+      <!-- Lista de trilhas - cada item com link para página ou seção dentro da página -->
+      <div style="display:grid;gap:12px">
+        <article class="card">
+          <img src="assets/images/trilha-1.jpg" alt="Trilha 1">
+          <div style="padding-top:8px">
+            <h3>Trilha do Mirante</h3>
+            <div style="color:var(--muted)">Dificuldade: Fácil • 1.5 km</div>
+            <p>Ótima para famílias. Leve água, tênis fechado e protetor solar.</p>
+            <a href="trilha-detalhe.html?slug=mirante" class="btn">Ver detalhes</a>
           </div>
-        </div>
-      </article>
-    </template>
+        </article>
 
+        <article class="card">
+          <img src="assets/images/trilha-2.jpg" alt="Trilha 2">
+          <div style="padding-top:8px">
+            <h3>Trilha da Serra</h3>
+            <div style="color:var(--muted)">Dificuldade: Moderada • 4 km</div>
+            <p>Recomendada para quem busca aventura. Consulte a previsão do tempo.</p>
+            <a href="trilha-detalhe.html?slug=serra" class="btn">Ver detalhes</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
   </main>
-
-  <footer class="site-footer small">
-    <div class="container">© <span id="ano2"></span> Juqui-explorer</div>
-  </footer>
-
-  <script>
-    document.getElementById('ano2').textContent = new Date().getFullYear();
-    // app.js will attach behavior (load points, render list, filter)
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
