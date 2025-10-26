@@ -1,36 +1,253 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juqui-explorer | Ecoturismo em Juquitiba</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
-</head>
-<body>
-  <header>
-    <h1>Juqui-explorer</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trilhas.html">Trilhas</a></li>
-        <li><a href="pousadas.html">Pousadas</a></li>
-        <li><a href="mapa.html">Mapa</a></li>
-        <li><a href="loja.html">Loja</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <h2>Descubra Juquitiba de um jeito sustentável</h2>
-      <p>Explore trilhas, cachoeiras e pousadas em harmonia com a natureza.</p>
-      <a href="trilhas.html" class="btn">Explorar trilhas</a>
-    </section>
-  </main>
-  <footer>
-    <p>© 2025 Juqui-explorer | Turismo Sustentável em Juquitiba</p>
-  </footer>
-</body>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juqui-explorer | Turismo Sustentável em Juquitiba</title>
+  <meta name="description" content="Explore trilhas, cachoeiras e pousadas em harmonia com a natureza. Juqui-explorer - Turismo sustentável em Juquitiba." />  <!-- FONTS (Google) - opcional -->  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">  <style>
+    /* ---------- RESET SIMPLES ---------- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.5;color:#20332a;background-color:#f3f7f4}
+    a{color:inherit;text-decoration:none}
+
+    /* ---------- LAYOUT ---------- */
+    header{background:#204b30;color:#fff}
+    .container{max-width:1100px;margin:0 auto;padding:0 18px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+    .brand{font-weight:700;font-size:1.3rem}
+
+    /* nav */
+    nav ul{list-style:none;display:flex;gap:18px;align-items:center}
+    nav a{color:#eaf2ec;padding:8px 10px;border-radius:6px}
+    nav a:hover{background:rgba(255,255,255,0.06)}
+
+    /* Mobile menu */
+    .menu-toggle{display:none;background:transparent;border:0;color:#fff;font-size:1.1rem}
+    @media (max-width:860px){
+      nav{position:fixed;right:0;top:64px;background:#1f4428;width:70%;max-width:320px;height:100%;transform:translateX(110%);transition:transform .28s ease;border-left:1px solid rgba(0,0,0,0.12);padding:20px}
+      nav.open{transform:translateX(0)}
+      nav ul{flex-direction:column;gap:12px}
+      .menu-toggle{display:inline-block}
+    }
+
+    /* ---------- HERO ---------- */
+    .hero{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:48px 18px;position:relative;overflow:hidden}
+    .hero__bg{position:absolute;inset:0;background:#e9f0ea center/cover no-repeat;filter:brightness(.65)}
+    .hero__content{position:relative;z-index:2;max-width:900px;color:#fff;padding:28px;border-radius:12px}
+    .hero h1{font-size:2rem;margin-bottom:12px;text-shadow:0 4px 18px rgba(0,0,0,.35)}
+    .hero p{opacity:.95;margin-bottom:18px;font-size:1.05rem}
+    .cta{display:inline-block;background:#9dc55a;color:#103018;padding:12px 22px;border-radius:8px;font-weight:700;box-shadow:0 6px 18px rgba(16,48,24,.12)}
+    .cta:hover{transform:translateY(-2px)}
+
+    /* hero overlay card (frosted) for light text backgrounds */
+    .hero__card{background:rgba(255,255,255,0.06);padding:28px;border-radius:12px}
+
+    /* ---------- SECTIONS ---------- */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .card{background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(34,34,34,.05)}
+    .card h3{margin-bottom:10px;color:#163b2c}
+    .card p{font-size:.95rem;color:#42524a}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:620px){.grid{grid-template-columns:1fr}}
+
+    /* ---------- FOOTER ---------- */
+    footer{background:#214b30;color:#f4f8f5;padding:18px 0;margin-top:32px}
+    footer .small{font-size:.9rem;opacity:.95}
+
+    /* ---------- UTIL ---------- */
+    .mt-20{margin-top:20px}
+    .center{text-align:center}
+
+    /* ---------- PLACEHOLDER IMAGE BANNER (for small screens) ---------- */
+    .hero__fallback{display:none}
+    @media (max-width:480px){.hero__bg{filter:brightness(.5)}.hero h1{font-size:1.4rem}.hero p{font-size:.96rem}}
+
+    /* Accessibility focus */
+    a:focus,button:focus{outline:3px solid rgba(157,197,90,.35);outline-offset:2px}
+
+  </style></head>
+<body>  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">Juqui-explorer</div><div style="display:flex;align-items:center;gap:12px">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">☰</button>
+      <nav id="primary-nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="#inicio" data-scroll>Início</a></li>
+          <li><a href="#trilhas" data-scroll>Trilhas</a></li>
+          <li><a href="#pousadas" data-scroll>Pousadas</a></li>
+          <li><a href="#mapa" data-scroll>Mapa</a></li>
+          <li><a href="#loja" data-scroll>Loja</a></li>
+          <li><a href="#sobre" data-scroll>Sobre</a></li>
+          <li><a href="#contato" data-scroll>Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  </header>  <!-- HERO: background image is controlled by the .hero__bg element -->  <main id="inicio">
+    <section class="hero"><!--
+    COLOQUE A IMAGEM DE FUNDO AQUI:
+    - Salve sua imagem na pasta /img no repositório.
+    - Nome sugerido: img/trilha-juquitiba.jpg
+    - Para alterar, edite a variável abaixo no atributo 'data-bg' ou troque o caminho no CSS via JS.
+  -->
+  <div class="hero__bg" role="img" aria-label="Trilha em Juquitiba" data-bg="img/trilha-juquitiba.jpg"></div>
+
+  <div class="hero__content hero__card container">
+    <h1>Descubra Juquitiba de um jeito sustentável</h1>
+    <p>Explore trilhas, cachoeiras, guias locais e pousadas sustentáveis — tudo pensado para preservar a natureza.</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+      <a class="cta" href="#trilhas" data-scroll>Explorar trilhas</a>
+      <a class="cta" href="#mapa" style="background:#fff;color:#1b3a2a;">Ver no mapa</a>
+    </div>
+  </div>
+
+</section>
+
+<div class="container mt-20">
+  <h2 style="color:#163b2c;margin-bottom:12px">O que você encontra aqui</h2>
+  <div class="grid">
+    <article class="card">
+      <h3>Trilhas</h3>
+      <p>Guias detalhados sobre rotas, nível de dificuldade, tempo de caminhada e recomendações de segurança.</p>
+    </article>
+
+    <article class="card">
+      <h3>Cachoeiras</h3>
+      <p>Descrição das principais cachoeiras, pontos de banho e cuidados ambientais que devemos ter.</p>
+    </article>
+
+    <article class="card">
+      <h3>Pousadas & Serviços</h3>
+      <p>Lista de pousadas locais, experiências sustentáveis e contatos de guias e transporte.</p>
+    </article>
+  </div>
+
+  <!-- MAPA (placeholder) -->
+  <section id="mapa" class="mt-20">
+    <h2 style="color:#163b2c;margin-bottom:12px">Mapa Interativo</h2>
+    <div id="map-placeholder" class="card" style="height:360px;display:flex;align-items:center;justify-content:center">
+      <div class="center">
+        <p style="margin-bottom:8px;color:#667">Aqui ficará o mapa interativo (Google Maps, Leaflet ou Mapbox).</p>
+        <button id="load-map" style="padding:8px 14px;border-radius:8px;border:0;background:#9dc55a;color:#082" aria-controls="map-placeholder">Carregar mapa (exemplo)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOJA (placeholder rápido) -->
+  <section id="loja" class="mt-20">
+    <h2 style="color:#163b2c;margin-bottom:12px">Loja</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Produtos locais</h3>
+        <p>Camisas, canecas e lembranças sustentáveis. Integração futura com carrinho direto no site.</p>
+      </div>
+      <div class="card">
+        <h3>Produtos personalizados</h3>
+        <p>Produtos com a identidade de Juquitiba, vendidos diretamente pelo Juqui-explorer.</p>
+      </div>
+      <div class="card">
+        <h3>Envios & Retirada</h3>
+        <p>Opções de retirada local para visitantes e envio para outras cidades — funcionalidade a implementar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="mt-20">
+    <h2 style="color:#163b2c;margin-bottom:12px">Sobre o projeto</h2>
+    <div class="card">
+      <p>Projeto acadêmico que conecta visitantes a experiências sustentáveis em Juquitiba. Feito com foco em educação ambiental, economia local e desenvolvimento turístico responsável.</p>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="mt-20">
+    <h2 style="color:#163b2c;margin-bottom:12px">Contato</h2>
+    <div class="card">
+      <form id="contact-form" style="display:grid;gap:10px">
+        <input type="text" name="nome" placeholder="Seu nome" required style="padding:10px;border-radius:8px;border:1px solid #e4e8e5" />
+        <input type="email" name="email" placeholder="E-mail" required style="padding:10px;border-radius:8px;border:1px solid #e4e8e5" />
+        <textarea name="mensagem" placeholder="Mensagem" rows="4" required style="padding:10px;border-radius:8px;border:1px solid #e4e8e5"></textarea>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button type="submit" style="padding:10px 16px;border-radius:8px;border:0;background:#204b30;color:#fff">Enviar</button>
+        </div>
+      </form>
+      <div id="contact-feedback" style="display:none;margin-top:10px;font-weight:600;color:#163b2c">Mensagem enviada — obrigado!</div>
+    </div>
+  </section>
+
+</div>
+
+  </main>  <footer>
+    <div class="container center">
+      <p class="small">© 2025 Juqui-explorer | Turismo Sustentável em Juquitiba</p>
+    </div>
+  </footer>  <script>
+    // ---------- JS: interatividade simples ----------
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    menuToggle && menuToggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[data-scroll]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const el = document.querySelector(href);
+        if(el){
+          el.scrollIntoView({behavior:'smooth',block:'start'});
+          // close mobile menu after click
+          if(nav.classList.contains('open')){nav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}
+        }
+      })
+    });
+
+    // Contact form (simulated) - you can hook this to Netlify Forms, Formspree or backend later
+    const form = document.getElementById('contact-form');
+    const feedback = document.getElementById('contact-feedback');
+    form && form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Simula envio
+      feedback.style.display = 'block';
+      form.reset();
+      setTimeout(()=>{feedback.style.display = 'none'},3500);
+    });
+
+    // Map load example (substituir por integração real com Leaflet/Mapbox/Google)
+    document.getElementById('load-map')?.addEventListener('click', ()=>{
+      const placeholder = document.getElementById('map-placeholder');
+      placeholder.innerHTML = '<iframe title="mapa-juquitiba" src="https://www.openstreetmap.org/export/embed.html?bbox=-47.150%2C-23.852%2C-46.800%2C-23.450&amp;layer=mapnik" style="border:0;width:100%;height:100%;"></iframe>';
+    });
+
+    // Background image loader: pega data-bg do elemento e aplica como background-image.
+    (function loadHeroBg(){
+      const bgEl = document.querySelector('.hero__bg');
+      if(!bgEl) return;
+      const src = bgEl.getAttribute('data-bg');
+      if(!src) return;
+
+      // Tenta carregar a imagem e só exibe no sucesso (evita mostrar imagem quebrada)
+      const img = new Image();
+      img.onload = () => {
+        bgEl.style.backgroundImage = `url('${src}')`;
+      };
+      img.onerror = () => {
+        // Caso a imagem não exista, usa uma cor suave (já definida no CSS)
+        console.warn('Imagem de fundo não encontrada:', src);
+      };
+      img.src = src;
+    })();
+
+  </script></body>
 </html>
