@@ -1,94 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre o Projeto - Juqui-Explorer</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4e9c5;
-      color: #2f4f2f;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: #2f4f2f;
-      padding: 15px 30px;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    nav a {
-      color: #fff;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      flex: 1;
-      padding: 40px 20px;
-    }
-
-    h2 {
-      color: #2f4f2f;
-      font-size: 28px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    footer {
-      background-color: #2f4f2f;
-      color: #fff;
-      text-align: center;
-      padding: 15px 10px;
-    }
-  </style>
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sobre — Juqui-Explorer</title>
+<link rel="stylesheet" href="styles.css"></head>
 <body>
-  <header>
-    <h1>Juqui-Explorer</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="trilhas.html">Trilhas</a>
-      <a href="cachoeiras.html">Cachoeiras</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="login.html">Login</a>
-    </nav>
+  <header class="header">
+    <div class="container">
+      <div class="brand"><img src="assets/images/logo.png" alt="Logo"><div>Juqui-Explorer<br><small>Sobre</small></div></div>
+      <nav class="nav">
+        <a href="index.html">Início</a><a href="trilhas.html">Trilhas</a><a href="cachoeiras.html">Cachoeiras</a><a href="pousadas.html">Pousadas</a>
+        <a href="produtos.html">Produtos</a><a href="sobre.html" class="active">Sobre</a><a href="contato.html">Contato</a>
+      </nav>
+      <button class="menu-toggle">☰</button>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Sobre o Projeto</h2>
-      <p>
-        O Juqui-Explorer é um projeto acadêmico criado com o objetivo de promover o ecoturismo em Juquitiba.
-        Através de trilhas e cachoeiras, queremos incentivar a conexão com a natureza e a valorização dos atrativos locais.
-      </p>
-    </section>
-  </main>
+  <main class="container">
+    <div class="section">
+      <h1>Sobre o Projeto</h1>
+      <p>Limpeza e explicação do projeto, missão, visão e valores. Juqui-Explorer é um projeto local para promover o ecoturismo sustentável em Juquitiba e apoiar artesãos e pousadas locais.</p>
 
-  <footer>
-    © 2025 Juqui-Explorer
-  </footer>
+      <h3>Objetivos</h3>
+      <ul>
+        <li>Incentivar turismo consciente.</li>
+        <li>Promover produtos locais.</li>
+        <li>Fornecer informações seguras sobre trilhas e cachoeiras.</li>
+      </ul>
+    </div>
+  </main>
+  <script src="app.js"></script>
 </body>
 </html>
