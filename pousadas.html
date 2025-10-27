@@ -1,42 +1,48 @@
 <!doctype html>
 <html lang="pt-BR">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pousadas — Juqui-Explorer</title>
-<link rel="stylesheet" href="styles.css"></head>
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="brand"><img src="assets/images/logo.png" alt="Logo"><div>Juqui-Explorer<br><small>Pousadas</small></div></div>
-      <nav class="nav">
-        <a href="index.html">Início</a>
-        <a href="trilhas.html">Trilhas</a>
-        <a href="cachoeiras.html">Cachoeiras</a>
-        <a href="pousadas.html" class="active">Pousadas</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="contato.html">Contato</a>
-      </nav>
-      <button class="menu-toggle">☰</button>
-    </div>
-  </header>
+  <a class="skip-link" href="#pousadas-main">Ir para Pousadas</a>
+  <header class="header"><div class="container"><div class="brand"><img src="https://source.unsplash.com/80x80/?inn" alt="Logo"><div><div class="site-title">Juqui-Explorer</div><div class="site-sub">Pousadas</div></div></div><nav class="nav"><a href="index.html">Início</a><a href="trilhas.html">Trilhas</a><a href="cachoeiras.html">Cachoeiras</a><a href="pousadas.html" class="active">Pousadas</a><a href="produtos.html">Produtos</a><a href="sobre.html">Sobre</a><a href="contato.html">Contato</a></nav><button class="menu-toggle">☰</button></div></header>
 
-  <main class="container">
-    <div class="section">
+  <main id="pousadas-main" class="container">
+    <div class="card">
       <h1>Pousadas</h1>
-      <p>Principais pousadas visitadas e parcerias. Clique para ver contato com o proprietário.</p>
+      <p style="color:var(--muted)">Principais pousadas e contatos — clique para ver contato do proprietário.</p>
 
-      <div style="display:grid;gap:12px">
-        <article class="card">
-          <img src="assets/images/pousada-1.jpg" alt="Pousada 1">
-          <div style="padding-top:8px">
-            <h3>Pousada do Rio</h3>
-            <div style="color:var(--muted)">Contato: (11) 9xxxx-xxxx</div>
-            <p>Quartos confortáveis e café da manhã incluso.</p>
-            <a href="pousada-detalhe.html?slug=rio" class="btn">Contatar</a>
+      <div style="display:grid;grid-template-columns:1fr 420px;gap:14px">
+        <div id="list-pousadas"></div>
+        <aside>
+          <div class="card">
+            <h3>Mapa das Pousadas</h3>
+            <div id="map-pousadas" class="map" role="application"></div>
+            <p style="color:var(--muted);font-size:14px;margin-top:8px">Veja a localização e entre em contato diretamente.</p>
           </div>
-        </article>
+        </aside>
       </div>
     </div>
   </main>
+
+  <footer class="footer"><div class="container">Juqui-Explorer — Pousadas</div></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
+  <script src="leaflet-init.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const pousadas = [
+        { id:'rio', title:'Pousada do Rio', coords:[-23.711, -46.883], contact:'(11) 9xxxx-xxxx', desc:'Quartos confortáveis e café da manhã incluso.' }
+      ];
+      const list = document.getElementById('list-pousadas');
+      pousadas.forEach(p=>{
+        const art = document.createElement('article'); art.className='card';
+        art.innerHTML = `<img src="https://source.unsplash.com/800x600/?cabin,inn" alt="${p.title}"><div style="padding-top:8px"><h3>${p.title}</h3><div style="color:var(--muted)">Contato: ${p.contact}</div><p>${p.desc}</p><a class="btn" href="pousada-detalhe.html?slug=${p.id}">Contatar</a></div>`;
+        list.appendChild(art);
+      });
+      initLeafletMap('map-pousadas', pousadas.map(p=>({title:p.title, coords:p.coords, desc:p.contact, url:'pousada-detalhe.html?slug='+p.id})));
+    });
+  </script>
 </body>
 </html>
