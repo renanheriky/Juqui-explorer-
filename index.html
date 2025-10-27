@@ -5,16 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Juqui-Explorer — Início</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Leaflet (só usado nas páginas com mapa; carregamos aqui também caso queira visualizar) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-  <header class="header">
+  <!-- Skip to content (a11y) -->
+  <a class="skip-link" href="#main-content">Ir para o conteúdo</a>
+
+  <header class="header" role="banner">
     <div class="container">
       <div class="brand">
-        <!-- EDITE AQUI: Substitua por logo do Juqui (ex: assets/images/logo.png) -->
-        <img src="assets/images/logo.png" alt="Juqui Explorer Logo">
+        <!-- EDITE AQUI: logo em assets/images/logo.png -->
+        <img src="https://source.unsplash.com/80x80/?leaf,logo" alt="Logo Juqui-Explorer">
         <div>
-          <div style="font-size:16px">Juqui-Explorer</div>
-          <small style="opacity:0.9">Turismo Sustentável — Juquitiba</small>
+          <div class="site-title">Juqui-Explorer</div>
+          <div class="site-sub">Turismo Sustentável — Juquitiba</div>
         </div>
       </div>
 
@@ -29,157 +34,178 @@
         <a id="nav-user" href="profile.html">Entrar / Cad.</a>
       </nav>
 
-      <button class="menu-toggle" aria-expanded="false">☰</button>
+      <div class="controls" aria-hidden="false">
+        <button id="btn-contrast" class="control-btn" title="Modo alto contraste">Contraste</button>
+        <button id="btn-larger" class="control-btn" title="Aumentar fonte">Fonte +</button>
+        <button id="btn-xl" class="control-btn" title="Fonte maior">Fonte ++</button>
+        <button id="btn-speak" class="control-btn" title="Ouvir o conteúdo">Ler</button>
+        <button class="menu-toggle" aria-expanded="false">☰</button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="main-content" class="container" role="main">
     <section class="hero">
       <div class="hero-grid">
-        <div class="hero-card">
-          <h1>Explore Juquitiba com Juqui-Explorer</h1>
-          <p class="lead">Dicas educativas de turismo, conscientização sobre o lixo, trilhas, cachoeiras e produtos artesanais locais.</p>
+        <div class="card" aria-labelledby="hero-title">
+          <h1 id="hero-title">Explore Juquitiba com Juqui-Explorer</h1>
+          <p style="color:var(--muted)">Dicas educativas, trilhas, cachoeiras, pousadas e produtos artesanais — tudo com foco em sustentabilidade.</p>
 
-          <!-- CARROSSEL: Substitua as imagens em assets/images/carousel-1.jpg ... -->
-          <div class="carousel" aria-label="Galeria de imagens">
+          <!-- CARROSSEL -->
+          <div class="carousel" aria-roledescription="carousel" aria-label="Galeria de fotos de Juquitiba">
             <div class="carousel-inner">
-              <img src="assets/images/carousel-1.jpg" alt="Foto 1">
-              <img src="assets/images/carousel-2.jpg" alt="Foto 2">
-              <img src="assets/images/carousel-3.jpg" alt="Foto 3">
+              <img src="https://source.unsplash.com/1200x800/?forest,river" alt="Floresta e rio em Juquitiba">
+              <img src="https://source.unsplash.com/1200x800/?waterfall" alt="Cachoeira">
+              <img src="https://source.unsplash.com/1200x800/?trail" alt="Trilha">
             </div>
-            <div class="carousel-dots"></div>
+            <div class="carousel-dots" aria-hidden="true"></div>
           </div>
 
-          <div class="features" style="margin-top:12px">
-            <div class="feature">
+          <div class="features" role="list">
+            <div class="feature" role="listitem" aria-label="Dicas de preservação">
               <h3>Dicas & Educação</h3>
-              <p class="muted">Como preservar trilhas e evitar poluição.</p>
+              <p>Pequenas ações que protegem nossa natureza — descubra como ajudar.</p>
             </div>
-            <div class="feature">
+            <div class="feature" role="listitem" aria-label="Atrações">
               <h3>Atrações</h3>
-              <p class="muted">Principais pontos turísticos selecionados.</p>
+              <p>Selecionamos os pontos mais bonitos e seguros para visitar.</p>
             </div>
-            <div class="feature">
+            <div class="feature" role="listitem" aria-label="Produtos locais">
               <h3>Produtos Locais</h3>
-              <p class="muted">Artesanatos e lembranças da cidade.</p>
+              <p>Artesanatos e delícias produzidas por moradores.</p>
             </div>
           </div>
         </div>
 
-        <!-- LADO DIREITO: Atração rápida e cadastro -->
+        <!-- LADO DIREITO -->
         <aside>
-          <div class="hero-card">
-            <h3>Juka — nossa mascote</h3>
-            <!-- EDITE AQUI: avatar da Juka -->
-            <img src="assets/images/juka-avatar.png" alt="Juka mascote" style="width:100%;height:180px;object-fit:cover;border-radius:8px">
-            <p style="margin:10px 0">Juka (capivara) ajuda a tirar dúvidas e passar orientações básicas.</p>
-            <button class="btn" onclick="document.querySelector('.chatbot').click()">Conversar com Juka</button>
+          <div class="card" aria-labelledby="mascote-title">
+            <h3 id="mascote-title">Juka — Nossa mascote</h3>
+            <!-- Animated SVG capybara (EDITE AQUI para usar sua imagem em assets/images/juka-avatar.png) -->
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="capybara-icon" aria-hidden="true">
+                <!-- Simples SVG capybara face -->
+                <svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mascote Juka">
+                  <g fill="#d7bfa6">
+                    <ellipse cx="36" cy="36" rx="28" ry="20"/>
+                    <circle cx="24" cy="32" r="3" fill="#222"/>
+                    <circle cx="48" cy="32" r="3" fill="#222"/>
+                    <path d="M20 44c4 4 16 6 32 0" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  </g>
+                </svg>
+              </div>
+              <div style="flex:1">
+                <p style="margin:0;color:var(--muted)">Juka responde dúvidas rápidas sobre locais, como chegar e orientações de segurança.</p>
+                <div style="margin-top:8px;display:flex;gap:8px">
+                  <button class="btn" onclick="document.querySelector('.chatbot').click()">Conversar com Juka</button>
+                  <a class="btn secondary" href="sobre.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">Nossa Missão</a>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="hero-card" style="margin-top:12px">
-            <h3>Cadastre-se e receba ofertas</h3>
-            <form id="register-form">
-              <div style="display:flex;flex-direction:column;gap:6px">
-                <input name="name" placeholder="Nome" required>
-                <input name="email" placeholder="E-mail" type="email" required>
-                <input name="phone" placeholder="Telefone (opcional)">
+          <div class="card" style="margin-top:12px" aria-labelledby="signup-title">
+            <h3 id="signup-title">Cadastre-se e receba ofertas</h3>
+            <form id="register-form" aria-label="Formulário de cadastro">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <input name="name" placeholder="Nome" required aria-label="Nome">
+                <input name="email" placeholder="E-mail" type="email" required aria-label="E-mail">
+                <input name="phone" placeholder="Telefone (opcional)" aria-label="Telefone">
                 <button class="btn" type="submit">Registrar</button>
               </div>
             </form>
-            <small style="color:var(--muted)">Os dados são armazenados localmente no seu navegador (para testes).</small>
+            <small style="color:var(--muted)">Teste local: os dados ficam no seu navegador.</small>
           </div>
         </aside>
       </div>
 
       <!-- Produtos em destaque -->
-      <div class="section">
+      <div class="card" style="margin-top:18px">
         <h2>Produtos mais vendidos</h2>
         <div class="products-grid">
-          <!-- CARTÃO DE PRODUTO - Substitua imagens em assets/images/product-1.jpg -->
-          <div class="card">
-            <img src="assets/images/product-1.jpg" alt="Produto 1">
-            <div class="meta">
-              <strong>Ovo de Páscoa Artesanal</strong>
-              <div style="color:var(--muted)">Feito por confeiteiros locais</div>
+          <div class="card" aria-label="Ovo de páscoa">
+            <img src="https://source.unsplash.com/600x400/?chocolate" alt="Ovo de Páscoa Artesanal">
+            <div class="meta"><strong>Ovo de Páscoa Artesanal</strong><div style="color:var(--muted)">Feito por confeiteiros locais</div>
               <div style="display:flex;gap:8px;margin-top:8px">
-                <button class="btn">Comprar</button>
-                <button class="btn secondary">Ver</button>
+                <button class="btn">Comprar</button><a class="btn secondary" href="produtos.html">Ver</a>
               </div>
             </div>
           </div>
 
           <div class="card">
-            <img src="assets/images/product-2.jpg" alt="Produto 2">
-            <div class="meta">
-              <strong>Artesanato em madeira</strong>
-              <div style="color:var(--muted)">Design local</div>
+            <img src="https://source.unsplash.com/600x400/?handmade" alt="Artesanato em madeira">
+            <div class="meta"><strong>Artesanato em madeira</strong><div style="color:var(--muted)">Design local</div>
               <div style="display:flex;gap:8px;margin-top:8px">
-                <button class="btn">Comprar</button>
-                <button class="btn secondary">Ver</button>
+                <button class="btn">Comprar</button><a class="btn secondary" href="produtos.html">Ver</a>
               </div>
             </div>
           </div>
 
           <div class="card">
-            <img src="assets/images/product-3.jpg" alt="Produto 3">
-            <div class="meta">
-              <strong>Mel orgânico</strong>
-              <div style="color:var(--muted)">Produtores da região</div>
+            <img src="https://source.unsplash.com/600x400/?honey" alt="Mel orgânico">
+            <div class="meta"><strong>Mel orgânico</strong><div style="color:var(--muted)">Produtores da região</div>
               <div style="display:flex;gap:8px;margin-top:8px">
-                <button class="btn">Comprar</button>
-                <button class="btn secondary">Ver</button>
+                <button class="btn">Comprar</button><a class="btn secondary" href="produtos.html">Ver</a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Destaque de uma trilha / cachoeira com link para páginas individuais -->
-      <div class="section">
-        <h2>Destaque</h2>
-        <p>Conheça a <strong>Cachoeira X</strong> — excelente para iniciantes. <a href="cachoeiras.html">Ver detalhes</a></p>
+      <!-- Destaque + CTA ao mapa -->
+      <div class="card" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h3>Destaque</h3>
+          <p style="margin:0;color:var(--muted)">Conheça a <strong>Cachoeira Azul</strong> — excelente para iniciantes e com área para banho. Clique para ver no mapa e obter instruções de como chegar.</p>
+        </div>
+        <div>
+          <a class="btn" href="cachoeiras.html">Ver cachoeiras</a>
+        </div>
       </div>
 
       <!-- Apoio / Parcerias -->
-      <div class="section">
-        <h2>Apoio & Parcerias</h2>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-          <!-- EDITE AQUI: substituir logos em assets/images/partner-1.png -->
-          <img src="assets/images/partner-1.png" alt="Parceiro 1" style="height:48px">
-          <img src="assets/images/partner-2.png" alt="Parceiro 2" style="height:48px">
-          <img src="assets/images/partner-3.png" alt="Parceiro 3" style="height:48px">
+      <div class="card" style="margin-top:18px">
+        <h3>Apoio & Parcerias</h3>
+        <p style="color:var(--muted)">Apoiadores locais e parceiros que colaboram com a conservação e turismo responsável.</p>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <img src="https://source.unsplash.com/120x48/?logo" alt="Parceiro 1">
+          <img src="https://source.unsplash.com/120x48/?logo,company" alt="Parceiro 2">
+          <img src="https://source.unsplash.com/120x48/?logo,brand" alt="Parceiro 3">
         </div>
       </div>
-
     </section>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
       <div class="flex">
         <div>
           <strong>Juqui-Explorer</strong>
-          <div style="color:var(--muted)">Explorando Juquitiba com responsabilidade</div>
+          <div style="color:var(--muted)">Turismo Sustentável — Juquitiba</div>
         </div>
         <div class="socials">
-          <!-- EDITE AQUI: links e icones -->
           <a href="#" aria-label="Instagram">Instagram</a>
           <a href="#" aria-label="Facebook">Facebook</a>
           <a href="#" aria-label="WhatsApp">WhatsApp</a>
         </div>
       </div>
     </footer>
-
   </main>
 
-  <!-- Chatbot floating -->
-  <div class="chatbot" title="Abrir Juka">Juka</div>
+  <!-- Chatbot Juka -->
+  <button class="chatbot" aria-label="Abrir chat da Juka" title="Fale com Juka">
+    <span class="capybara-icon" aria-hidden="true">
+      <!-- Small SVG repeated so it appears within button -->
+      <svg width="44" height="44" viewBox="0 0 72 72"><g fill="#d7bfa6"><ellipse cx="36" cy="36" rx="28" ry="20"/><circle cx="24" cy="32" r="3" fill="#222"/><circle cx="48" cy="32" r="3" fill="#222"/><path d="M20 44c4 4 16 6 32 0" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/></g></svg>
+    </span>
+  </button>
+
   <div class="chat-window" role="dialog" aria-label="Chat com Juka">
     <header>
       <div>Juka — Capivara</div>
-      <button onclick="document.querySelector('.chat-window').style.display='none'">✕</button>
+      <button onclick="document.querySelector('.chat-window').style.display='none'" aria-label="Fechar chat">✕</button>
     </header>
-    <div class="chat-messages"></div>
-    <form id="chat-form" class="chat-input">
-      <input id="chat-input" placeholder="Escreva sua pergunta..." style="flex:1;padding:8px" />
+    <div class="chat-messages" aria-live="polite"></div>
+    <form id="chat-form" class="chat-input" aria-label="Formulário de chat">
+      <input id="chat-input" placeholder="Pergunte algo (ex.: 'Como chegar na Cachoeira Azul?')" style="flex:1;padding:8px" aria-label="Mensagem para Juka" />
       <button class="btn" type="submit">Enviar</button>
     </form>
   </div>
@@ -189,7 +215,7 @@
     <div class="sheet">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>Editar Perfil</h3>
-        <button id="profile-close">✕</button>
+        <button id="profile-close" aria-label="Fechar">✕</button>
       </div>
       <form id="profile-form">
         <input name="name" placeholder="Nome" required>
@@ -203,6 +229,9 @@
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
+  <script src="leaflet-init.js"></script>
 </body>
 </html>
