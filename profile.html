@@ -3,48 +3,73 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Perfil — Juqui-Explorer</title>
 <link rel="stylesheet" href="styles.css"></head>
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="brand"><img src="assets/images/logo.png" alt="Logo"><div>Juqui-Explorer</div></div>
-      <nav class="nav">
-        <a href="index.html">Início</a><a href="trilhas.html">Trilhas</a><a href="cachoeiras.html">Cachoeiras</a><a href="pousadas.html">Pousadas</a>
-        <a href="produtos.html">Produtos</a><a href="sobre.html">Sobre</a><a href="contato.html">Contato</a>
-      </nav>
-      <button class="menu-toggle">☰</button>
-    </div>
-  </header>
+  <a class="skip-link" href="#profile-main">Ir para Perfil</a>
+  <header class="header"><div class="container"><div class="brand"><img src="https://source.unsplash.com/80x80/?user" alt="Logo"><div><div class="site-title">Juqui-Explorer</div><div class="site-sub">Perfil</div></div></div><nav class="nav"><a href="index.html">Início</a><a href="trilhas.html">Trilhas</a><a href="cachoeiras.html">Cachoeiras</a><a href="pousadas.html">Pousadas</a><a href="produtos.html">Produtos</a><a href="sobre.html">Sobre</a><a href="contato.html">Contato</a></nav><button class="menu-toggle">☰</button></div></header>
 
-  <main class="container">
-    <div class="section">
-      <h1>Meu Perfil</h1>
-      <p>Edite seus dados abaixo. Esses dados ficam salvos localmente no navegador (para um site real você integraria com back-end/API).</p>
+  <main id="profile-main" class="container">
+    <div class="card" style="max-width:720px;margin:auto">
+      <h1>Minha Conta</h1>
+      <p style="color:var(--muted)">Faça login ou crie uma conta. (Em testes, os dados ficam no navegador).</p>
 
-      <form id="profile-edit" style="display:grid;gap:8px;max-width:520px">
-        <input id="pf-name" name="name" placeholder="Nome" required>
-        <input id="pf-email" name="email" placeholder="E-mail" type="email" required>
-        <input id="pf-phone" name="phone" placeholder="Telefone">
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button id="save-profile" class="btn" type="button">Salvar</button>
-          <button id="remove-profile" class="btn secondary" type="button">Sair / Excluir</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card">
+          <h3>Entrar</h3>
+          <form id="login-form">
+            <input name="email" type="email" placeholder="E-mail" required>
+            <input name="password" type="password" placeholder="Senha (teste)" required>
+            <button class="btn" type="submit">Entrar</button>
+          </form>
+          <small style="color:var(--muted)">Login simulado para testes (sem back-end).</small>
         </div>
-      </form>
 
-      <script>
-        // script leve local para carregar e salvar usando same app.js logic
-        const loadUser = ()=> {
-          try{const u=JSON.parse(localStorage.getItem('juqui_user')); if(u){ document.getElementById('pf-name').value=u.name||''; document.getElementById('pf-email').value=u.email||''; document.getElementById('pf-phone').value=u.phone||'';}}
-          catch(e){}
-        }
-        loadUser();
-        document.getElementById('save-profile').addEventListener('click', ()=>{
-          const u={name:document.getElementById('pf-name').value,email:document.getElementById('pf-email').value,phone:document.getElementById('pf-phone').value};
-          localStorage.setItem('juqui_user', JSON.stringify(u)); alert('Perfil salvo localmente.');
-        });
-        document.getElementById('remove-profile').addEventListener('click', ()=>{
-          localStorage.removeItem('juqui_user'); alert('Você saiu.'); location.href='index.html';
-        });
-      </script>
+        <div class="card">
+          <h3>Cadastrar / Editar Perfil</h3>
+          <form id="profile-edit">
+            <input id="pf-name" name="name" placeholder="Nome" required>
+            <input id="pf-email" name="email" placeholder="E-mail" type="email" required>
+            <input id="pf-phone" name="phone" placeholder="Telefone">
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button id="save-profile" class="btn" type="button">Salvar</button>
+              <button id="remove-profile" class="btn secondary" type="button">Sair / Excluir</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
+
+  <script src="app.js"></script>
+  <script>
+    // Carrega dados locais
+    function loadUser(){
+      try{ const u = JSON.parse(localStorage.getItem('juqui_user')); if(u){ document.getElementById('pf-name').value = u.name || ''; document.getElementById('pf-email').value = u.email || ''; document.getElementById('pf-phone').value = u.phone || ''; }}
+      catch(e){}
+    }
+    loadUser();
+
+    document.getElementById('save-profile').addEventListener('click', ()=> {
+      const u = { name: document.getElementById('pf-name').value, email: document.getElementById('pf-email').value, phone: document.getElementById('pf-phone').value };
+      localStorage.setItem('juqui_user', JSON.stringify(u));
+      alert('Perfil salvo localmente. Você será redirecionado para a página inicial.');
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('remove-profile').addEventListener('click', ()=> {
+      localStorage.removeItem('juqui_user'); alert('Você saiu.'); window.location.href='index.html';
+    });
+
+    document.getElementById('login-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // login simulado: verifica e-mail com localStorage usuario
+      const email = new FormData(e.target).get('email');
+      const stored = JSON.parse(localStorage.getItem('juqui_user')||'null');
+      if(stored && stored.email === email){
+        alert('Login bem-sucedido (simulado).');
+        window.location.href = 'index.html';
+      } else {
+        alert('Usuário não encontrado. Cadastre-se no formulário ao lado.');
+      }
+    });
+  </script>
 </body>
 </html>
