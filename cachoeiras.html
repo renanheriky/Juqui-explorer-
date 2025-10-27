@@ -1,54 +1,68 @@
 <!doctype html>
 <html lang="pt-BR">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cachoeiras — Juqui-Explorer</title>
-<link rel="stylesheet" href="styles.css"></head>
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
 <body>
-  <!-- Cabeçalho (igual) -->
+  <a class="skip-link" href="#cachoeiras-main">Ir para Cachoeiras</a>
   <header class="header">
     <div class="container">
-      <div class="brand"><img src="assets/images/logo.png" alt="Logo"><div>Juqui-Explorer<br><small>Cachoeiras</small></div></div>
-      <nav class="nav">
-        <a href="index.html">Início</a>
-        <a href="trilhas.html">Trilhas</a>
-        <a href="cachoeiras.html" class="active">Cachoeiras</a>
-        <a href="pousadas.html">Pousadas</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="contato.html">Contato</a>
-      </nav>
+      <div class="brand"><img src="https://source.unsplash.com/80x80/?water" alt="Logo"><div><div class="site-title">Juqui-Explorer</div><div class="site-sub">Cachoeiras</div></div></div>
+      <nav class="nav"><a href="index.html">Início</a><a href="trilhas.html">Trilhas</a><a href="cachoeiras.html" class="active">Cachoeiras</a><a href="pousadas.html">Pousadas</a><a href="produtos.html">Produtos</a><a href="sobre.html">Sobre</a><a href="contato.html">Contato</a></nav>
       <button class="menu-toggle">☰</button>
     </div>
   </header>
 
-  <main class="container">
-    <div class="section">
+  <main id="cachoeiras-main" class="container">
+    <div class="card">
       <h1>Cachoeiras</h1>
-      <p>Principais cachoeiras, com classificação de periculosidade, dicas do que levar, temperatura média, e fotos.</p>
+      <p style="color:var(--muted)">Informações de segurança, classificação de periculosidade e mapa interativo.</p>
 
-      <div style="display:grid;gap:12px">
-        <article class="card">
-          <img src="assets/images/cachoeira-1.jpg" alt="Cachoeira 1">
-          <div style="padding-top:8px">
-            <h3>Cachoeira Azul</h3>
-            <div style="color:var(--muted)">Nível: Moderado • Recomendada com guia</div>
-            <p>Dicas: calçado de trilha, água e cuidado com escorregões.</p>
-            <a href="cachoeira-detalhe.html?slug=azul" class="btn">Ver detalhes</a>
-          </div>
-        </article>
+      <div style="display:grid;grid-template-columns:1fr 420px;gap:14px">
+        <div id="list-cachoeiras">
+          <!-- populated by JS - app.js basic loader uses data-load="places"; replicate here for clarity -->
+        </div>
 
-        <article class="card">
-          <img src="assets/images/cachoeira-2.jpg" alt="Cachoeira 2">
-          <div style="padding-top:8px">
-            <h3>Cachoeira do Vale</h3>
-            <div style="color:var(--muted)">Nível: Fácil • Área para banho</div>
-            <p>Leve sacola para recolher seu lixo e preserve o local.</p>
-            <a href="cachoeira-detalhe.html?slug=vale" class="btn">Ver detalhes</a>
+        <aside>
+          <div class="card">
+            <h3>Mapa das Cachoeiras</h3>
+            <div id="map-cachoeiras" class="map" role="application" aria-label="Mapa interativo das cachoeiras"></div>
+            <p style="color:var(--muted);font-size:14px;margin-top:8px">Use para planejar sua visita.</p>
           </div>
-        </article>
+        </aside>
       </div>
     </div>
   </main>
 
+  <footer class="footer"><div class="container">Juqui-Explorer — Cachoeiras</div></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
+  <script src="leaflet-init.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const places = [
+        { id:'azul', type:'cachoeira', title:'Cachoeira Azul', coords:[-23.709, -46.879], diff:'Moderado', dist:'2 km', description:'Cachoeira de águas límpidas; atenção ao piso escorregadio.'},
+        { id:'vale', type:'cachoeira', title:'Cachoeira do Vale', coords:[-23.715, -46.888], diff:'Fácil', dist:'1.2 km', description:'Local com área para banho.'}
+      ];
+      const list = document.getElementById('list-cachoeiras');
+      places.forEach(p=>{
+        const art = document.createElement('article'); art.className='card';
+        art.innerHTML = `
+          <img src="https://source.unsplash.com/800x600/?waterfall,nature" alt="${p.title}">
+          <div style="padding-top:8px">
+            <h3>${p.title}</h3>
+            <div style="color:var(--muted)">${p.diff} • ${p.dist}</div>
+            <p>${p.description}</p>
+            <a class="btn" href="cachoeira-detalhe.html?slug=${p.id}">Ver detalhes</a>
+          </div>`;
+        list.appendChild(art);
+      });
+
+      // init leaflet
+      const items = places.map(p=>({title:p.title, coords:p.coords, desc:p.diff + ' • ' + p.dist, url:'cachoeira-detalhe.html?slug='+p.id}));
+      initLeafletMap('map-cachoeiras', items);
+    });
+  </script>
 </body>
 </html>
