@@ -1,0 +1,7 @@
+{
+  "name": "Juqui Explorer",
+  "short_name": "Juqui Explorer",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#2c5e3f"
+}
